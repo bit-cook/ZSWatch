@@ -9,4 +9,20 @@
     };
 
 };
- 
+
+/ {
+	fstab {
+		compatible = "zephyr,fstab";
+		lvgl_lfs: lvgl_lfs {
+			compatible = "zephyr,fstab,littlefs";
+			mount-point = "/lvgl_lfs";
+			partition = <&lvgl_lfs_partition>;
+			automount;
+			read-size = <1024>;
+			prog-size = <512>;
+			cache-size = <4096>;
+			lookahead-size = <4096>;
+			block-cycles = <512>;
+		};
+	};
+};
