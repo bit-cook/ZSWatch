@@ -27,6 +27,8 @@
 #include <zephyr/logging/log.h>
 #include "lvgl.h"
 
+#include "zsw_3d_rendering.h"
+
 #include <zephyr/drivers/counter.h>
 
 LOG_MODULE_REGISTER(display_control, LOG_LEVEL_WRN);
@@ -81,17 +83,21 @@ void zsw_display_control_init(void)
         LOG_WRN("Device touch not ready.");
     }
 
-    bri_alarm_start.flags = 0;
-    bri_alarm_start.callback = &brightness_alarm_start_cb;
+#ifndef CONFIG_BOARD_NATIVE_POSIX
+        LOG_WRN("Device counter not ready.");
 
-    bri_alarm_run.flags = 0;
-    bri_alarm_run.callback = &brightness_alarm_run_cb;
+        bri_alarm_start.flags = 0;
+        bri_alarm_start.callback = &brightness_alarm_start_cb;
 
-    bri_alarm_stop.flags = 0;
-    bri_alarm_stop.callback = &brightness_alarm_stop_cb;
+        bri_alarm_run.flags = 0;
+        bri_alarm_run.callback = &brightness_alarm_run_cb;
 
-    bri_alarm_start.ticks = counter_us_to_ticks(counter_dev, 0);
-    bri_alarm_run.ticks = counter_us_to_ticks(counter_dev, 750);
+        bri_alarm_stop.flags = 0;
+        bri_alarm_stop.callback = &brightness_alarm_stop_cb;
+
+        bri_alarm_start.ticks = counter_us_to_ticks(counter_dev, 0);
+        bri_alarm_run.ticks = counter_us_to_ticks(counter_dev, 750);
+#endif
 
     pm_device_action_run(display_dev, PM_DEVICE_ACTION_SUSPEND);
     if (device_is_ready(touch_dev)) {
@@ -236,6 +242,9 @@ uint8_t zsw_display_control_get_brightness(void)
 
 void zsw_display_control_set_brightness(uint8_t percent)
 {
+#ifdef CONFIG_BOARD_NATIVE_POSIX
+    return;
+#endif
     uint8_t level = 0;
     if (!device_is_ready(display_blk.dev)) {
         return;
@@ -256,12 +265,15 @@ void zsw_display_control_set_brightness(uint8_t percent)
 
 static void lvgl_render(struct k_work *item)
 {
+    /*
     const int64_t next_update_in_ms = lv_task_handler();
     if (first_render_since_poweron) {
         zsw_display_control_set_brightness(last_brightness);
         first_render_since_poweron = false;
     }
-    k_work_schedule(&lvgl_work, K_MSEC(next_update_in_ms));
+    */
+    zsw_3d_rendering_loop();
+    k_work_schedule(&lvgl_work, K_MSEC(30));
 }
 
 static void set_brightness_level(uint8_t brightness)

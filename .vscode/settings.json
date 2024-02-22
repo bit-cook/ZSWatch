@@ -12,4 +12,18 @@
     },
     "editor.defaultFormatter": "chiehyu.vscode-astyle",
     "astyle.astylerc": "${workspaceRoot}/app/tools/astyle.cfg",
+    "files.associations": {
+        "zsw_3d_rendering.h": "c",
+        "array": "c",
+        "hash_map": "c",
+        "*.tcc": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "memory": "c",
+        "string_view": "c",
+        "ostream": "c",
+        "streambuf": "c",
+        "functional": "c",
+        "tuple": "c"
+    },
 }

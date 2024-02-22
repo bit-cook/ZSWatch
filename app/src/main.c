@@ -58,6 +58,8 @@
 #include "ble/ble_ancs.h"
 #include "ble/ble_cts.h"
 
+#include "3d_rendering/zsw_3d_rendering.h"
+
 LOG_MODULE_REGISTER(main, CONFIG_ZSW_APP_LOG_LEVEL);
 
 #define TASK_WDT_FEED_INTERVAL_MS  3000
@@ -243,6 +245,8 @@ static void run_init_work(struct k_work *item)
     lv_obj_add_event_cb(lv_scr_act(), on_lvgl_screen_gesture_event_callback, LV_EVENT_GESTURE, NULL);
 
     watchface_app_start(input_group, on_watchface_app_event_callback);
+
+    zsw_3d_rendering_setup();
 
 #if defined(CONFIG_TASK_WDT) && !defined(CONFIG_BOARD_NATIVE_POSIX)
     const struct device *hw_wdt_dev = DEVICE_DT_GET(DT_ALIAS(watchdog0));

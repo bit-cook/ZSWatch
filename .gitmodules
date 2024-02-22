@@ -19,3 +19,6 @@
 [submodule "sensor-fusion"]
 	path = app/src/ext_drivers/fusion
 	url = https://github.com/xioTechnologies/Fusion.git
+[submodule "app/src/ext_drivers/tgx"]
+	path = app/src/ext_drivers/tgx
+	url = https://github.com/vindar/tgx.git
