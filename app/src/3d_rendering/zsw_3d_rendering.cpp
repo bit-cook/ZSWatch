@@ -11,7 +11,9 @@
 #include <zephyr/kernel.h>
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 #include <zsw_3d_rendering.h>
+
 #include <tgx.h>
 #include <font_tgx_OpenSans_Bold.h>
 #include <zephyr/drivers/display.h>
@@ -48,8 +50,8 @@ using namespace tgx;
 //ST7735_t3 tft = ST7735_t3(TFT_CS, TFT_DC, TFT_RST);
 
 // screen size (portrait mode)
-#define LX 240
-#define LY 240
+#define LX 120
+#define LY 120
 
 static const struct device *display_dev;
 
@@ -80,7 +82,7 @@ static void draw(void)
 	desc.width = w;
 	desc.pitch = w;
 	desc.height = h;
-    display_write(display_dev, 0, 0, &desc, front_fb->data());
+    display_write(display_dev, 50, 50, &desc, front_fb->data());
 }
 
 static void setup(void) 
@@ -88,6 +90,9 @@ static void setup(void)
     front_fb = &imfb1;
     back_fb = &imfb2;
 
+    front_fb->set(fb1, LX, LY);
+    back_fb->set(fb2, LX, LY);
+    
     // set up the screen driver
     //tft.initR(INITR_BLACKTAB);
     //tft.setRotation(0);
@@ -202,7 +207,7 @@ static void fps()
         }
     // display 
     char buf[10];
-    sprintf(buf, "%d FPS", fps);
+    sprintf(buf, "%d FPS", count);
     auto B = im.measureText(buf, { 0,0 }, font_tgx_OpenSans_Bold_9, false);
     im.drawText(buf, { LX - B.lx() - 3,9 }, RGB565_Red, font_tgx_OpenSans_Bold_9,false);    
     }
@@ -219,7 +224,7 @@ void loop(void)
     Image<RGB565> * im = currentFB();
     renderer.clearZbuffer(); // clear the z-buffer
     renderer.setImage(im); // set the image to draw onto
-    im->fillScreen(RGB565_Gray); // background
+    //im->fillScreen(RGB565_Gray); // background
 
     // choose the mesh
 #if (TWO_MODELS)
@@ -228,13 +233,28 @@ void loop(void)
     const Mesh3D<RGB565>* mesh = &stormtrooper; 
 #endif
 
+    for (int i = 0; i < LX*LY; i++)
+    {
+        if (fb1[i] != 0) {
+            //printk("NOT B4 0 i = [%d]: %d\n", i, fb1[i]);
+        }
+    }
+
+
     renderer.drawMesh(mesh, false); // draw !
+
+    for (int i = 0; i < LX*LY; i++)
+    {
+        if (fb1[i] != 0) {
+            //printk("NOT 0 i = [%d]: %d\n", i, fb1[i]);
+        }
+    }
 
     // flash memory just overflows on T3.6 when we try to print FPS :-( 
     // (todo: fixit)  
     #if not defined(ARDUINO_TEENSY36)  
     #endif
-    fps();
+    //fps();
     
     updateAndSwitchFB(); // update to screen and switch framebuffers
 

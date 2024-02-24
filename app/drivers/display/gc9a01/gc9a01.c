@@ -248,7 +248,7 @@ static int gc9a01_write(const struct device *dev, const uint16_t x, const uint16
     gc9a01_set_frame(dev, frame);
 
     size_t len = (x_end_idx + 1 - x) * (y_end_idx + 1 - y) * 16 / 8;
-    //printk("x_start: %d, y_start: %d, x_end: %d, y_end: %d, buf_size: %d, pitch: %d len: %d\n", x, y, x_end_idx, y_end_idx, desc->buf_size, desc->pitch, len);
+    printk("x_start: %d, y_start: %d, x_end: %d, y_end: %d, buf_size: %d, pitch: %d len: %d\n", x, y, x_end_idx, y_end_idx, desc->buf_size, desc->pitch, len);
 
 #ifdef GC9A01_SPI_PROFILING
     start_time = k_cycle_get_32();

@@ -8,7 +8,8 @@
         "${workspaceFolder}\\app"
     ],
     "nrf-connect.debugging.bindings": {
-        "${workspaceFolder}/app/build": "Launch build"
+        "${workspaceFolder}/app/build": "Launch build",
+        "${workspaceFolder}/app/build_dbg_v4": "Launch build_dbg_v4"
     },
     "editor.defaultFormatter": "chiehyu.vscode-astyle",
     "astyle.astylerc": "${workspaceRoot}/app/tools/astyle.cfg",
@@ -24,6 +25,7 @@
         "ostream": "c",
         "streambuf": "c",
         "functional": "c",
-        "tuple": "c"
+        "tuple": "c",
+        "type_traits": "cpp"
     },
 }
