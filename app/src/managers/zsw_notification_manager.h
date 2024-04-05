@@ -61,11 +61,7 @@ typedef struct not_mngr_notification {
 */
 void zsw_notification_manager_init(void);
 
-/** @brief
- *  @param notification
- *  @return
-*/
-zsw_not_mngr_notification_t *zsw_notification_manager_add(const ble_comm_notify_t *notification);
+void zsw_notification_manager_add(zsw_not_mngr_notification_t *notification);
 
 /** @brief
  *  @param id   Notification ID

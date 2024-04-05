@@ -59,6 +59,7 @@
 #include "ble/ble_ams.h"
 #include "ble/ble_ancs.h"
 #include "ble/ble_cts.h"
+#include "zsw_demo_helper.h"
 
 LOG_MODULE_REGISTER(main, CONFIG_ZSW_APP_LOG_LEVEL);
 
@@ -246,6 +247,8 @@ static void run_init_work(struct k_work *item)
     lv_obj_add_event_cb(lv_scr_act(), on_lvgl_screen_gesture_event_callback, LV_EVENT_GESTURE, NULL);
 
     watchface_app_start(input_group, on_watchface_app_event_callback);
+
+    zsw_demo_helper_run();
 
 #ifdef CONFIG_SPI_FLASH_LOADER
     if (NUM_RAW_FS_FILES != zsw_filesytem_get_num_rawfs_files()) {

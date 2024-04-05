@@ -45,7 +45,7 @@ static void compass_app_stop(void)
         lv_timer_del(refresh_timer);
     }
     compass_ui_remove();
-    zsw_magnetometer_stop_calibration();
+    //zsw_magnetometer_stop_calibration();
     zsw_sensor_fusion_deinit();
     if (is_calibrating) {
         zsw_popup_remove();
@@ -54,7 +54,7 @@ static void compass_app_stop(void)
 
 static void on_start_calibration(void)
 {
-    zsw_magnetometer_start_calibration();
+    //zsw_magnetometer_start_calibration();
     is_calibrating = true;
     cal_start_ms = lv_tick_get();
     zsw_popup_show("Calibration",
@@ -67,7 +67,7 @@ static void timer_callback(lv_timer_t *timer)
     float heading;
     if (is_calibrating &&
         (lv_tick_elaps(cal_start_ms) >= (CONFIG_DEFAULT_CONFIGURATION_COMPASS_CALIBRATION_TIME_S * 1000UL))) {
-        zsw_magnetometer_stop_calibration();
+        //zsw_magnetometer_stop_calibration();
         is_calibrating = false;
         zsw_popup_remove();
     }

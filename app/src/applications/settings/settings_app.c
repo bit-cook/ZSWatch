@@ -351,7 +351,7 @@ static void on_clear_storage_confirm(bool yes_pressed)
 {
     if (yes_pressed) {
 #ifdef CONFIG_SPI_FLASH_LOADER
-        zsw_rtt_flash_loader_reboot_and_erase_flash();
+        //zsw_rtt_flash_loader_reboot_and_erase_flash();
 #endif
     }
 }
@@ -359,8 +359,8 @@ static void on_clear_storage_confirm(bool yes_pressed)
 static void on_clear_storage_changed(lv_setting_value_t value, bool final)
 {
     if (final) {
-        zsw_popup_show("Erase all settings?",
-                       "Are you sure?\nThis can take up to 300s, but probably less.\nThe watch will restart once done.",
+        zsw_popup_show("Erase whole flash?",
+                       "I'm one step ahead of you, not allowing this at EW ;)",
                        on_clear_storage_confirm, 10, true);
     }
 }

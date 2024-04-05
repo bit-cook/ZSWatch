@@ -49,7 +49,7 @@ static void notification_app_zbus_notification_remove_callback(const struct zbus
 static void on_notification_page_notification_close(uint32_t not_id)
 {
     // Inform the notification manager to remove the notification.
-    zsw_notification_manager_remove(not_id);
+    //zsw_notification_manager_remove(not_id);
 }
 
 static void notification_app_start(lv_obj_t *root, lv_group_t *group)

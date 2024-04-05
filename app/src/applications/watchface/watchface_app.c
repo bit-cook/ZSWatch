@@ -183,13 +183,13 @@ void watchface_change(void)
 static void refresh_ui(void)
 {
     uint32_t steps;
-    watchfaces[current_watchface]->set_ble_connected(is_connected);
+    watchfaces[current_watchface]->set_ble_connected(true);
     watchfaces[current_watchface]->set_battery_percent(last_batt_evt.percent, last_batt_evt.mV);
     if (strlen(last_weather_data.report_text) > 0) {
         watchfaces[current_watchface]->set_weather(last_weather_data.temperature_c, last_weather_data.weather_code);
     }
     if (zsw_imu_fetch_num_steps(&steps) == 0) {
-        watchfaces[current_watchface]->set_step(steps);
+        //watchfaces[current_watchface]->set_step(steps);
     }
 }
 
@@ -207,6 +207,9 @@ static void general_work(struct k_work *item)
             watchfaces[current_watchface]->show(watchface_evt_cb, &watchface_settings);
             refresh_ui();
 
+            zsw_battery_manager_sample_battery(&last_batt_evt.mV, &last_batt_evt.percent);
+            watchfaces[current_watchface]->set_battery_percent(last_batt_evt.percent, last_batt_evt.mV);
+
             __ASSERT(0 <= k_work_schedule(&clock_work.work, K_NO_WAIT), "FAIL clock_work");
             __ASSERT(0 <= k_work_schedule(&update_work.work, K_SECONDS(1)), "FAIL update_work");
             __ASSERT(0 <= k_work_schedule(&date_work.work, K_SECONDS(1)), "FAIL date_work");
@@ -219,7 +222,7 @@ static void general_work(struct k_work *item)
 
             // Realtime update of steps
             if (zsw_imu_fetch_num_steps(&steps) == 0) {
-                watchfaces[current_watchface]->set_step(steps);
+                //watchfaces[current_watchface]->set_step(steps);
             }
             __ASSERT(0 <= k_work_schedule(&update_work.work, K_SECONDS(1)), "FAIL update_work");
             break;
@@ -249,6 +252,12 @@ static void general_work(struct k_work *item)
             watchfaces[current_watchface]->set_date(time.tm.tm_wday, time.tm.tm_mday);
 
             zsw_pressure_sensor_get_pressure(&pressure);
+            if (iaq == 0.0f) {
+                iaq = 50.0f;
+                temperature = 23.0f;
+                co2 = 400.0f;
+                humidity = 70.0f;
+            }
             watchfaces[current_watchface]->set_watch_env_sensors((int)temperature, (int)humidity, (int)pressure, iaq, co2);
 
             __ASSERT(0 <= k_work_schedule(&date_work.work, SLOW_UPDATE_INTERVAL), "FAIL date_work");
@@ -281,7 +290,7 @@ static void disconnected(struct bt_conn *conn, uint8_t reason)
     if (!running | is_suspended) {
         return;
     }
-    watchfaces[current_watchface]->set_ble_connected(false);
+    watchfaces[current_watchface]->set_ble_connected(true);
 }
 
 static void update_ui_from_event(struct k_work *item)

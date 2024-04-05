@@ -17,6 +17,7 @@ LOG_MODULE_REGISTER(notification_mgr, LOG_LEVEL_DBG);
 
 static void notification_mgr_zbus_ble_comm_data_callback(const struct zbus_channel *chan);
 static void notification_mgr_update_worker(struct k_work *item);
+static zsw_not_mngr_notification_t *notification_manager_add(const ble_comm_notify_t *not);
 
 static uint8_t num_notifications;
 static zsw_not_mngr_notification_t notifications[ZSW_NOTIFICATION_MGR_MAX_STORED];
@@ -115,7 +116,7 @@ static void notification_mgr_zbus_ble_comm_data_callback(const struct zbus_chann
         if (event->data.data.notify.src_len == 0) {
             return;
         }
-        not = zsw_notification_manager_add(&event->data.data.notify);
+        not = notification_manager_add(&event->data.data.notify);
         if (!not) {
             return;
         }
@@ -146,7 +147,7 @@ void zsw_notification_manager_init(void)
     num_notifications = 0;
 }
 
-zsw_not_mngr_notification_t *zsw_notification_manager_add(const ble_comm_notify_t *not)
+static zsw_not_mngr_notification_t *notification_manager_add(const ble_comm_notify_t *not)
 {
     uint32_t idx;
 
@@ -252,6 +253,31 @@ zsw_not_mngr_notification_t *zsw_notification_manager_add(const ble_comm_notify_
     LOG_DBG("Notifications: %u", num_notifications);
 
     return &notifications[idx];
+}
+
+void zsw_notification_manager_add(zsw_not_mngr_notification_t *not)
+{
+    uint32_t idx;
+
+    idx = find_free_notification_idx();
+    // List full. We remove the oldest notification.
+    if (idx == NOTIFICATION_INVALID_INDEX) {
+        LOG_DBG("Notification buffer full");
+
+        idx = find_oldest_notification_idx();
+        zsw_notification_manager_remove(notifications[idx].id);
+
+        // No check needed because we have removed one notification.
+        idx = find_free_notification_idx();
+    }
+
+    memcpy(&notifications[idx], not, sizeof(zsw_not_mngr_notification_t));
+
+    notifications[idx].timestamp = time(NULL);
+
+    if (num_notifications < ZSW_NOTIFICATION_MGR_MAX_STORED) {
+        num_notifications++;
+    }
 }
 
 int32_t zsw_notification_manager_remove(uint32_t id)
