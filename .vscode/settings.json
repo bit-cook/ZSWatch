@@ -4,11 +4,14 @@
         "${workspaceFolder}\\app"
     ],
     "nrf-connect.boardRoots": [
+        "${workspaceFolder}/zephyr",
         "${workspaceFolder}/app",
         "${workspaceFolder}\\app"
     ],
     "nrf-connect.debugging.bindings": {
-        "${workspaceFolder}/app/build": "Launch build"
+        "${workspaceFolder}/app/build": "Launch build",
+        "${workspaceFolder}/app/build_dbg_v5": "Launch build_dbg_v5",
+        "${workspaceFolder}/app/build_dk": "Launch build_dk"
     },
     "editor.defaultFormatter": "chiehyu.vscode-astyle",
     "astyle.astylerc": "${workspaceRoot}/app/tools/astyle.cfg",

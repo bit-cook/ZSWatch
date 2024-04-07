@@ -135,11 +135,11 @@ static void run_input_work(struct k_work *item)
         // Button event
         // Always allow force restart.
         case (INPUT_KEY_Y): {
-            LOG_INF("Force restart");
+            LOG_ERR("Force restart");
 
-            retained.off_count += 1;
-            zsw_retained_ram_update();
-            sys_reboot(SYS_REBOOT_COLD);
+            //retained.off_count += 1;
+            //zsw_retained_ram_update();
+            //sys_reboot(SYS_REBOOT_COLD);
 
             break;
         }
@@ -275,6 +275,14 @@ static void run_wdt_work(struct k_work *item)
     k_work_schedule(&wdt_work, K_MSEC(TASK_WDT_FEED_INTERVAL_MS));
 }
 
+#include <zephyr/usb/usb_device.h>
+#include <zephyr/usb/usbd.h>
+#include <zephyr/drivers/uart.h>
+#include "drivers/zsw_buzzer.h"
+
+BUILD_ASSERT(DT_NODE_HAS_COMPAT(DT_CHOSEN(zephyr_console), zephyr_cdc_acm_uart),
+	     "Console device is not ACM CDC UART device");
+
 int main(void)
 {
 #ifdef CONFIG_SPI_FLASH_LOADER
@@ -286,11 +294,39 @@ int main(void)
         zsw_rtt_flash_loader_erase_external();
     }
 #endif
+    //app_buzzer_init();
+    //play_beep_once();
+
     // The init code requires a bit of stack.
     // So in order to not increase CONFIG_MAIN_STACK_SIZE and loose
     // this RAM forever, instead re-use the system workqueue for init
     // it has the required amount of stack.
     k_work_submit(&init_work);
+
+    const struct device *const dev = DEVICE_DT_GET(DT_CHOSEN(zephyr_console));
+	uint32_t dtr = 0;
+
+#if defined(CONFIG_USB_DEVICE_STACK_NEXT)
+	if (enable_usb_device_next()) {
+		return 0;
+	}
+#else
+	if (usb_enable(NULL)) {
+		return 0;
+	}
+#endif
+
+	/* Poll if the DTR flag was set */
+	while (!dtr) {
+		uart_line_ctrl_get(dev, UART_LINE_CTRL_DTR, &dtr);
+		/* Give CPU resources to low priority threads. */
+		k_sleep(K_MSEC(100));
+	}
+
+	while (1) {
+		printk("Hello World! %s\n", CONFIG_ARCH);
+		k_sleep(K_SECONDS(1));
+	}
 
     return 0;
 }

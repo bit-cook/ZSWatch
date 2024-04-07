@@ -50,6 +50,7 @@ typedef enum display_state {
 static const struct pwm_dt_spec display_blk = PWM_DT_SPEC_GET_OR(DT_ALIAS(display_blk), {});
 static const struct device *counter_dev = DEVICE_DT_GET_OR_NULL(DT_NODELABEL(timer1));
 static const struct device *const reg_dev = DEVICE_DT_GET_OR_NULL(DT_PATH(regulator_3v3_ctrl));
+
 static const struct device *display_dev = DEVICE_DT_GET_OR_NULL(DT_CHOSEN(zephyr_display));
 static const struct device *touch_dev =  DEVICE_DT_GET_OR_NULL(DT_NODELABEL(cst816s));
 
@@ -80,6 +81,8 @@ void zsw_display_control_init(void)
     if (!device_is_ready(touch_dev)) {
         LOG_WRN("Device touch not ready.");
     }
+
+    //regulator_enable(reg_dev);
 
     if (counter_dev) {
         bri_alarm_start.flags = 0;

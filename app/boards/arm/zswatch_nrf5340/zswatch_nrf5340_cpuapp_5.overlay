@@ -71,19 +71,63 @@
 		};
 	};
 
+	pwm2_default: pwm2_default {
+		group1 {
+			psels = <NRF_PSEL(PWM_OUT0, 0, 1)>;
+		};
+	};
+
+	pwm2_sleep: pwm2_sleep {
+		group1 {
+			psels = <NRF_PSEL(PWM_OUT0, 0, 1)>;
+			low-power-enable;
+		};
+	};
+
 };
 
 &uicr {
     nfct-pins-as-gpios;
 };
 
+&zephyr_udc0 {
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
+};
+
+&pwm2 {
+    status = "okay";
+    pinctrl-0 = <&pwm2_default>;
+    pinctrl-1 = <&pwm2_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+&pinctrl {
+	pdm0_default_alt: pdm0_default_alt {
+		group1 {
+			psels = <NRF_PSEL(PDM_CLK, 0, 19)>,
+				<NRF_PSEL(PDM_DIN, 0, 25)>;
+		};
+	};
+};
+
+dmic_dev: &pdm0 {
+	status = "okay";
+	pinctrl-0 = <&pdm0_default_alt>;
+	pinctrl-names = "default";
+	clock-source = "PCLK32M";
+};
+
 / {
 	chosen {
 		nordic,pm-ext-flash = &at25sl128a;
+		zephyr,console = &cdc_acm_uart0;
 	};
 
 	aliases {
 		spi-flash0 = &at25sl128a;
+		//buzzer-pwm = &buzzer_pwm;
 	};
 
     vbatt {
@@ -126,21 +170,27 @@
             zephyr,code = <INPUT_KEY_4>;
         };
     };
-/*
-	regulator_3v3: regulator-3v3-ctrl {
-        compatible = "regulator-fixed";
-        regulator-name = "display";
-        enable-gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
-        regulator-boot-on;
-        startup-delay-us = <50000>;
-    };
-*/
+
 	vib_pwr: vib-pwr-ctrl {
         compatible = "regulator-fixed";
         regulator-name = "vib-pwr-ctrl";
         enable-gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>;
     };
 
+	mic_pwr: mic-pwr-ctrl {
+        compatible = "regulator-fixed";
+        regulator-name = "mic-pwr-ctrl";
+        enable-gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>;
+    };
+
+	/*
+	pwmleds {
+        compatible = "pwm-leds";
+        buzzer_pwm: pwm_buzzer {
+            pwms = <&pwm2 0 PWM_HZ(880) PWM_POLARITY_NORMAL>;
+        };
+    };
+	*/
 };
 
 &i2c1 {
@@ -186,13 +236,13 @@
 				regulator-always-on;
 			};
 
-			npm1300_ek_buck2: regulator-buzzer-usb {
+			regulator_buzzer_usb: BUCK2 {
 				regulator-min-microvolt = <3000000>;
 				regulator-max-microvolt = <3000000>;
 				regulator-init-microvolt = <3000000>;
 			};
 
-			npm1300_ek_ldo1: regulator-3v3-ctrl {
+			regulator_3v3_ctrl: LDO1 {
 				regulator-min-microvolt = <3300000>;
 				regulator-max-microvolt = <3300000>;
 				regulator-initial-mode = <NPM1300_LDSW_MODE_LDO>;
