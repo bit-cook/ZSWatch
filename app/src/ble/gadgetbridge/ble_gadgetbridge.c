@@ -19,11 +19,19 @@
 
 LOG_MODULE_REGISTER(ble_gadgetbridge, CONFIG_ZSW_BLE_LOG_LEVEL);
 
+#define MAX_GB_PACKET_LENGTH                    1000
+
 typedef enum parse_state {
     WAIT_GB,
     WAIT_END,
     PARSE_STATE_DONE,
 } parse_state_t;
+
+static char *extract_value_str(char *key, char *data, int *value_len);
+static int parse_data(char *data, int len);
+static void parse_time(char *data);
+static void parse_time_zone(char *offset);
+static void parse_remote_control(char *data, int len);
 
 static uint8_t num_parsed_brackets;
 static parse_state_t parse_state = WAIT_GB;
