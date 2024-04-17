@@ -5,6 +5,6 @@ ZBUS_CHAN_DEFINE(music_control_data_chan,
                  struct music_event,
                  NULL,
                  NULL,
-                 ZBUS_OBSERVERS(android_music_control_lis),
+                 ZBUS_OBSERVERS(android_music_control_lis, android_music_control_lis_chronos),
                  ZBUS_MSG_INIT()
                 );
