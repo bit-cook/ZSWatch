@@ -49,7 +49,7 @@ typedef enum display_state {
 
 static const struct pwm_dt_spec display_blk = PWM_DT_SPEC_GET_OR(DT_ALIAS(display_blk), {});
 static const struct device *counter_dev = DEVICE_DT_GET_OR_NULL(DT_NODELABEL(timer1));
-static const struct device *const reg_dev = DEVICE_DT_GET_OR_NULL(DT_PATH(regulator_3v3_ctrl));
+static const struct device *const reg_dev = DEVICE_DT_GET_OR_NULL(DT_NODELABEL(regulator_3v3));
 static const struct device *display_dev = DEVICE_DT_GET_OR_NULL(DT_CHOSEN(zephyr_display));
 static const struct device *touch_dev =  DEVICE_DT_GET_OR_NULL(DT_NODELABEL(cst816s));
 
@@ -129,7 +129,8 @@ int zsw_display_control_sleep_ctrl(bool on)
                 // Suspend the display and touch chip
                 pm_device_action_run(display_dev, PM_DEVICE_ACTION_SUSPEND);
                 if (device_is_ready(touch_dev)) {
-                    pm_device_action_run(touch_dev, PM_DEVICE_ACTION_SUSPEND);
+                    int ret = pm_device_action_run(touch_dev, PM_DEVICE_ACTION_SUSPEND);
+                    LOG_ERR("Touch device suspend failed: %d", ret);
                 }
                 // Turn off PWM peripheral as it consumes like 200-250uA
                 zsw_display_control_set_brightness(0);

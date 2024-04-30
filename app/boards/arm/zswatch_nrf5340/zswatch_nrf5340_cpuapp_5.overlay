@@ -90,19 +90,21 @@
     nfct-pins-as-gpios;
 };
 
-&zephyr_udc0 {
-	cdc_acm_uart0: cdc_acm_uart0 {
-		compatible = "zephyr,cdc-acm-uart";
-	};
+&pwm2 {
+	status = "okay";
+	pinctrl-0 = <&pwm2_default>;
+	pinctrl-1 = <&pwm2_sleep>;
+	pinctrl-names = "default", "sleep";
 };
+
 / {
 	chosen {
 		nordic,pm-ext-flash = &gd25lq128d;
-		zephyr,console = &cdc_acm_uart0;
 	};
 
 	aliases {
 		spi-flash0 = &gd25lq128d;
+		buzzer-pwm = &buzzer_pwm;
 	};
 
     longpress: longpress {

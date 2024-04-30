@@ -31,16 +31,7 @@ static void bmi2_configure_wrist_wakeup(struct bmi2_sens_config *p_config, struc
 static void bmi2_configure_no_motion(struct bmi2_sens_config *p_config, struct bmi270_data *p_data);
 
 static bosch_bmi270_feature_config_set_t bmi270_enabled_features[] = {
-    { .sensor_id = BMI2_ACCEL, .cfg_func = bmi2_configure_accel},
-    // Gyro not used for now, disable to keep power consumption down
-    { .sensor_id = BMI2_GYRO, .cfg_func = bmi2_configure_gyro, .skip_enable = true},
-    { .sensor_id = BMI2_STEP_COUNTER, .cfg_func = bmi2_configure_step_counter},
-    { .sensor_id = BMI2_SIG_MOTION, .cfg_func = NULL, .isr_disable = true},
-    { .sensor_id = BMI2_ANY_MOTION, .cfg_func = bmi2_configure_anymotion, .isr_disable = true, .skip_enable = true},
-    { .sensor_id = BMI2_STEP_ACTIVITY, .cfg_func = NULL, .skip_enable = true},
-    { .sensor_id = BMI2_WRIST_GESTURE, .cfg_func = bmi2_configure_gesture_detect},
-    { .sensor_id = BMI2_WRIST_WEAR_WAKE_UP, .cfg_func = bmi2_configure_wrist_wakeup},
-    { .sensor_id = BMI2_NO_MOTION, .cfg_func = bmi2_configure_no_motion},
+    { .sensor_id = BMI2_ACCEL, .cfg_func = bmi2_configure_accel, .skip_enable = true},
 };
 
 /** @brief
@@ -72,7 +63,7 @@ static void bmi2_configure_accel(struct bmi2_sens_config *p_config, struct bmi27
 {
     /* NOTE: The user can change the following configuration parameters according to their requirement. */
     /* Set Output Data Rate */
-    p_config->cfg.acc.odr = BMI2_ACC_ODR_100HZ;
+    p_config->cfg.acc.odr = BMI2_ACC_ODR_0_78HZ;
 
     /* Gravity range of the sensor (+/- 2G, 4G, 8G, 16G). */
     p_config->cfg.acc.range = BMI2_ACC_RANGE_2G;
@@ -95,22 +86,8 @@ static void bmi2_configure_accel(struct bmi2_sens_config *p_config, struct bmi27
         */
     p_config->cfg.acc.filter_perf = BMI2_POWER_OPT_MODE;
 
-    switch (p_config->cfg.acc.range) {
-        case BMI2_ACC_RANGE_2G:
-            p_data->acc_range = 2;
-            break;
-        case BMI2_ACC_RANGE_4G:
-            p_data->acc_range = 4;
-            break;
-        case BMI2_ACC_RANGE_8G:
-            p_data->acc_range = 8;
-            break;
-        case BMI2_ACC_RANGE_16G:
-            p_data->acc_range = 16;
-            break;
-    }
 
-    p_data->acc_odr = p_config->cfg.acc.odr;
+    //p_data->acc_odr = p_config->cfg.acc.odr;
 }
 
 /** @brief
@@ -214,7 +191,7 @@ static void bmi2_configure_no_motion(struct bmi2_sens_config *p_config, struct b
 {
     // 1LSB equals 20ms. Default is 100ms, setting to 80ms.
     // Max value is 163 seconds, hence below calc. We want max.
-    p_config->cfg.no_motion.duration = (160 * 1000) / 20;
+    p_config->cfg.no_motion.duration = (20 * 1000) / 20;
 }
 
 int bmi2_configure_enable_all(const struct device *p_dev, struct bmi270_data *p_data)
@@ -250,7 +227,7 @@ int bmi2_configure_enable_all(const struct device *p_dev, struct bmi270_data *p_
             if (bmi270_enabled_features[i].isr_disable) {
                 all_features[num_features].hw_int_pin = BMI2_INT_NONE;
             } else {
-                all_features[num_features].hw_int_pin = BMI2_INT2;
+                all_features[num_features].hw_int_pin = BMI2_INT_NONE;
             }
 
             num_features++;

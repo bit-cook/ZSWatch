@@ -8,11 +8,6 @@
 
 / {
     chosen {
-        zephyr,console = &uart0;
-        zephyr,shell-uart = &uart0;
-        zephyr,uart-mcumgr = &uart0;
-        zephyr,bt-mon-uart = &uart0;
-        zephyr,bt-c2h-uart = &uart0;
         zephyr,bt-hci-ipc = &ipc0;
         zephyr,ieee802154 = &ieee802154;
         zephyr,display = &gc9a01;
@@ -92,7 +87,7 @@
     bme688: bme688@76 {
         compatible = "bosch,bme680";
         reg = <0x76>;
-        status = "okay";
+        status = "disabled";
     };
 
     lis2mdl: lis2mdl@1e {
@@ -129,21 +124,12 @@
     };
 };
 
-/* UART0 GPIOs can be configured for other use-cases */
-&uart0 {
-    current-speed = <115200>;
-    status = "okay";
-    pinctrl-0 = <&uart0_default>;
-    pinctrl-1 = <&uart0_sleep>;
-    pinctrl-names = "default", "sleep";
-};
-
 &timer0 {
     status = "okay";
 };
 
 &timer1 {
-    status = "okay";
+    status = "disabled";
 };
 
 &timer2 {

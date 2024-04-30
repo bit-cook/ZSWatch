@@ -120,16 +120,24 @@ ZBUS_CHAN_DECLARE(ble_comm_data_chan);
 ZBUS_LISTENER_DEFINE(main_ble_comm_lis, on_zbus_ble_data_callback);
 ZBUS_LISTENER_DEFINE(main_notification_lis, on_zbus_notification_callback);
 
+#include <zephyr/drivers/regulator.h>
+#include "drivers/zsw_buzzer.h"
+#include <zephyr/drivers/gpio.h>
+#include <zephyr/drivers/pwm.h>
+
+//static bool enable = true;
+
 static void run_input_work(struct k_work *item)
 {
     struct input_worker_item_t *container = CONTAINER_OF(item, struct input_worker_item_t, work);
 
     LOG_DBG("Input worker code: %u", container->event.code);
-
+/*
     // Don't process the press if it caused wakeup.
     if (zsw_power_manager_reset_idle_timout()) {
         return;
     }
+*/
 
     switch (container->event.code) {
         // Button event
@@ -145,6 +153,30 @@ static void run_input_work(struct k_work *item)
         }
         // Button event
         case INPUT_KEY_3: {
+            /*
+            enable = !enable;
+            const struct gpio_dt_spec enable_gpio = GPIO_DT_SPEC_GET(DT_NODELABEL(mic_pwr), enable_gpios);
+            if (!device_is_ready(enable_gpio.port)) {
+                printk("Mic enable/disable not supported");
+            }
+            if (enable) {
+                regulator_enable(reg_usb_buzzer_dev);
+                zsw_buzzer_run_melody(ZSW_BUZZER_PATTERN_BEEP);
+            } else {
+                regulator_disable(reg_usb_buzzer_dev);
+                k_msleep(1000);
+                zsw_buzzer_run_melody(ZSW_BUZZER_PATTERN_BEEP);
+                k_msleep(1000);
+
+                int ret = gpio_pin_configure_dt(&enable_gpio, GPIO_OUTPUT_INACTIVE);
+                if (ret != 0) {
+                    printk("Failed init vibration motor enable pin\n");
+                }
+
+                gpio_pin_set_dt(&enable_gpio, 0);
+            }
+            */
+/*
             if (zsw_notification_popup_is_shown()) {
                 zsw_notification_popup_remove();
             } else if (watch_state == APPLICATION_MANAGER_STATE) {
@@ -152,6 +184,8 @@ static void run_input_work(struct k_work *item)
 
                 return;
             }
+*/
+            
 
             break;
         }
@@ -197,22 +231,68 @@ static void run_input_work(struct k_work *item)
     }
 }
 
+#include <zephyr/pm/pm.h>
+#include <zephyr/pm/device.h>
+#include <zephyr/pm/policy.h>
+
 static void run_init_work(struct k_work *item)
 {
     lv_indev_t *touch_indev;
 
+    const struct device *const reg_usb_buzzer_dev = DEVICE_DT_GET(DT_NODELABEL(regulator_buzzer_usb)); // 3V0 Reg
+    const struct pwm_dt_spec buzzer_dt = PWM_DT_SPEC_GET(DT_NODELABEL(buzzer_pwm)); // Buzzer PWM pin
+    const struct gpio_dt_spec mic_pwr_gpio = GPIO_DT_SPEC_GET(DT_NODELABEL(mic_pwr), enable_gpios); // Mic 
+
+    if (!device_is_ready(mic_pwr_gpio.port)) {
+        printk("Mic enable/disable not supported");
+    }
+   
+    if (!device_is_ready(buzzer_dt.dev)) {
+        LOG_ERR("buzzer_dt PWM control not supported");
+    }
+
+    if (!device_is_ready(reg_usb_buzzer_dev)) {
+        LOG_ERR("Display regulator control not supported");
+    }
+
+    int ret = gpio_pin_configure_dt(&mic_pwr_gpio, GPIO_OUTPUT_INACTIVE | GPIO_OUTPUT_INIT_LOW);
+    if (ret != 0) {
+        printk("Failed init vibration motor enable pin\n");
+    }
+
+    gpio_pin_set_dt(&mic_pwr_gpio, 0); // Active low in dts so pin actually HIGH
+
+    //regulator_disable(reg_usb_buzzer_dev);
+
+    // Run buzzer to empty the caps so 3V0 is at 0V
+    
+    ret = pwm_set_dt(&buzzer_dt, PWM_HZ(523), PWM_HZ((523)) / 2);
+    __ASSERT(ret == 0, "pwm error: %d", ret);
+    k_msleep(1000);
+    ret = pwm_set_dt(&buzzer_dt, 0, 0); // Set buzzer pin to 0 LOW to make sure no current flow
+    __ASSERT(ret == 0, "pwm error: %d", ret);
+
+    zsw_display_control_init();
     zsw_coredump_init();
     lv_obj_set_style_bg_color(lv_scr_act(), zsw_color_dark_gray(), LV_PART_MAIN | LV_STATE_DEFAULT);
-    zsw_display_control_init();
     zsw_display_control_sleep_ctrl(true);
+    zsw_imu_init();
+    enable_bluetoth();
+    zsw_magnetometer_init();
+    zsw_light_sensor_init();
+    zsw_pressure_sensor_init();
+    zsw_environment_sensor_init();
+
+
+    const struct device *const qspi_dev = DEVICE_DT_GET(DT_INST(0, nordic_qspi_nor));
+    if (device_is_ready(qspi_dev))
+    {
+        // Put the peripheral into suspended state.
+        pm_device_action_run(qspi_dev, PM_DEVICE_ACTION_SUSPEND);
+    }
+    
     print_retention_ram();
     zsw_notification_manager_init();
-    enable_bluetoth();
-    zsw_imu_init();
-    zsw_magnetometer_init();
-    zsw_pressure_sensor_init();
-    zsw_light_sensor_init();
-    zsw_environment_sensor_init();
 
     INPUT_CALLBACK_DEFINE(NULL, on_input_subsys_callback);
 
@@ -252,6 +332,7 @@ static void run_init_work(struct k_work *item)
         zsw_popup_show("Warning", "Missing files in external flash\nPlease run:\nwest upload_fs", NULL, 5, false);
     }
 #endif
+    
 
 #if defined(CONFIG_TASK_WDT) && !defined(CONFIG_BOARD_NATIVE_POSIX)
     const struct device *hw_wdt_dev = DEVICE_DT_GET(DT_ALIAS(watchdog0));
@@ -313,7 +394,7 @@ static void enable_bluetoth(void)
 #endif
 
     err = bt_enable(NULL);
-
+    return;
 #ifdef CONFIG_SETTINGS
     settings_load();
 #endif

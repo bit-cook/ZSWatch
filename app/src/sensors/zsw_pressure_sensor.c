@@ -17,6 +17,9 @@
 
 #include <zephyr/logging/log.h>
 #include <zephyr/zbus/zbus.h>
+#include <zephyr/pm/pm.h>
+#include <zephyr/pm/device.h>
+#include <zephyr/pm/policy.h>
 
 #include "events/pressure_event.h"
 #include "events/zsw_periodic_event.h"
@@ -55,13 +58,15 @@ int zsw_pressure_sensor_init(void)
 
     zsw_periodic_chan_add_obs(&periodic_event_1s_chan, &zsw_pressure_sensor_lis);
 
-    zsw_pressure_sensor_set_odr(BOSCH_BMP581_ODR_DEFAULT);
+    zsw_pressure_sensor_set_odr(BOSCH_BMP581_ODR_0_125_HZ);
+    pm_device_action_run(bmp581, PM_DEVICE_ACTION_SUSPEND);
 
     return 0;
 }
 
 int zsw_pressure_sensor_set_odr(uint8_t odr)
 {
+    return 0;
     struct sensor_value value;
 
     if (!device_is_ready(bmp581)) {
@@ -79,6 +84,7 @@ int zsw_pressure_sensor_set_odr(uint8_t odr)
 
 int zsw_pressure_sensor_get_pressure(float *pressure)
 {
+    return 0;
     struct sensor_value sensor_val;
 
     if (!device_is_ready(bmp581)) {
@@ -100,6 +106,7 @@ int zsw_pressure_sensor_get_pressure(float *pressure)
 
 int zsw_pressure_sensor_get_temperature(float *temperature)
 {
+    return 0;
     struct sensor_value sensor_val;
 
     if (!device_is_ready(bmp581)) {

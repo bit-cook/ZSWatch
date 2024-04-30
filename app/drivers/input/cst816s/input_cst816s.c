@@ -306,8 +306,7 @@ static int cst816s_pm_action(const struct device *dev, enum pm_device_action act
 {
 	const struct cst816s_config *config = dev->config;
 	int status;
-
-	LOG_DBG("Status: %u", action);
+	LOG_ERR("Status: %u", action);
 
 	switch (action) {
 		case PM_DEVICE_ACTION_SUSPEND: {
@@ -344,7 +343,7 @@ static int cst816s_pm_action(const struct device *dev, enum pm_device_action act
 																									\
 	PM_DEVICE_DT_INST_DEFINE(index, cst816s_pm_action);                                             \
 																									\
-	DEVICE_DT_INST_DEFINE(index, cst816s_init, NULL, &cst816s_data_##index,                         \
+	DEVICE_DT_INST_DEFINE(index, cst816s_init, PM_DEVICE_DT_INST_GET(index), &cst816s_data_##index,                         \
 				  &cst816s_config_##index, POST_KERNEL, CONFIG_INPUT_INIT_PRIORITY,                 \
 				  NULL);
 

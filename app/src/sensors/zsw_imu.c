@@ -17,6 +17,9 @@
 
 #include <zephyr/logging/log.h>
 #include <zephyr/zbus/zbus.h>
+#include <zephyr/pm/pm.h>
+#include <zephyr/pm/device.h>
+#include <zephyr/pm/policy.h>
 
 #include "zsw_clock.h"
 
@@ -117,6 +120,7 @@ static void bmi270_trigger_handler(const struct device *dev, const struct sensor
         }
         case SENSOR_TRIG_MOTION: {
             evt.type = ZSW_IMU_EVT_TYPE_ANY_MOTION;
+            return;
 
             break;
         }
@@ -141,9 +145,11 @@ int zsw_imu_init(void)
     //bmi270_trigger.type = SENSOR_TRIG_MOTION;
     bmi270_trigger.chan = SENSOR_CHAN_ALL;
 
-    sensor_trigger_set(bmi270, &bmi270_trigger, bmi270_trigger_handler);
+    //sensor_trigger_set(bmi270, &bmi270_trigger, bmi270_trigger_handler);
 
     zsw_periodic_chan_add_obs(&periodic_event_1s_chan, &zsw_imu_lis);
+
+    pm_device_action_run(bmi270, PM_DEVICE_ACTION_SUSPEND);
 
     return 0;
 }
@@ -154,7 +160,7 @@ int zsw_imu_fetch_accel_f(float *x, float *y, float *z)
     struct sensor_value y_temp;
     struct sensor_value z_temp;
 
-    if (!device_is_ready(bmi270)) {
+    if (device_is_ready(bmi270)) {
         return -ENODEV;
     }
 
@@ -181,7 +187,7 @@ int zsw_imu_fetch_gyro_f(float *x, float *y, float *z)
     struct sensor_value y_temp;
     struct sensor_value z_temp;
 
-    if (!device_is_ready(bmi270)) {
+    if (device_is_ready(bmi270)) {
         return -ENODEV;
     }
 
@@ -208,7 +214,7 @@ int zsw_imu_fetch_accel(int16_t *x, int16_t *y, int16_t *z)
     struct sensor_value y_temp;
     struct sensor_value z_temp;
 
-    if (!device_is_ready(bmi270)) {
+    if (device_is_ready(bmi270)) {
         return -ENODEV;
     }
 
@@ -235,7 +241,7 @@ int zsw_imu_fetch_gyro(int16_t *x, int16_t *y, int16_t *z)
     struct sensor_value y_temp;
     struct sensor_value z_temp;
 
-    if (!device_is_ready(bmi270)) {
+    if (device_is_ready(bmi270)) {
         return -ENODEV;
     }
 
@@ -260,7 +266,7 @@ int zsw_imu_fetch_num_steps(uint32_t *num_steps)
 {
     struct sensor_value sensor_val;
 
-    if (!device_is_ready(bmi270)) {
+    if (device_is_ready(bmi270)) {
         return -ENODEV;
     }
 
@@ -281,7 +287,7 @@ int zsw_imu_fetch_temperature(float *temperature)
 {
     struct sensor_value sensor_val;
 
-    if (!device_is_ready(bmi270)) {
+    if (device_is_ready(bmi270)) {
         return -ENODEV;
     }
 
@@ -302,7 +308,7 @@ int zsw_imu_reset_step_count(void)
 {
     struct sensor_value value;
 
-    if (!device_is_ready(bmi270)) {
+    if (device_is_ready(bmi270)) {
         return -ENODEV;
     }
 
@@ -320,7 +326,7 @@ int zsw_imu_feature_disable(zsw_imu_feature_t feature)
 {
     struct sensor_value value;
 
-    if (!device_is_ready(bmi270)) {
+    if (device_is_ready(bmi270)) {
         return -ENODEV;
     }
 
@@ -338,7 +344,7 @@ int zsw_imu_feature_enable(zsw_imu_feature_t feature, bool int_en)
 {
     struct sensor_value value;
 
-    if (!device_is_ready(bmi270)) {
+    if (device_is_ready(bmi270)) {
         return -ENODEV;
     }
 

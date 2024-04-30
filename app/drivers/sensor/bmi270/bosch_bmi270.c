@@ -145,6 +145,7 @@ static int bmi2_swap_axis_sign(int axis)
 */
 static int bmi2_configure_axis_remapping(const struct device *p_dev)
 {
+    return 0;
     struct bmi2_remap remapped_axis;
     struct bmi2_remap remapped_axis_read;
     struct bmi270_data *data = p_dev->data;
@@ -225,6 +226,7 @@ static int bmi2_configure_axis_remapping(const struct device *p_dev)
 static int bmi270_attr_set(const struct device *p_dev, enum sensor_channel channel, enum sensor_attribute attribute,
                            const struct sensor_value *p_value)
 {
+    return 0;
     __ASSERT_NO_MSG(p_value != NULL);
 
     if ((channel == SENSOR_CHAN_ACCEL_X) || (channel == SENSOR_CHAN_ACCEL_Y) || (channel == SENSOR_CHAN_ACCEL_Z) ||
@@ -318,6 +320,8 @@ static int bmi270_sample_fetch(const struct device *p_dev, enum sensor_channel c
     struct bmi270_data *data = p_dev->data;
     struct bmi2_sens_data sensor_data;
 
+    return 0;
+
     pm_device_state_get(p_dev, &pm_state);
     if (pm_state != PM_DEVICE_STATE_ACTIVE) {
         return -EFAULT;
@@ -366,6 +370,7 @@ static int bmi270_sample_fetch(const struct device *p_dev, enum sensor_channel c
 static int bmi270_channel_get(const struct device *p_dev, enum sensor_channel channel, struct sensor_value *p_value)
 {
     struct bmi270_data *data = p_dev->data;
+    return 0;
 
     __ASSERT_NO_MSG(p_value != NULL);
 
@@ -472,10 +477,13 @@ static int bmi270_sensor_init(const struct device *p_dev)
         return -EFAULT;
     }
 
+    // Stay in suspend
+    return 0;
+
     // Initialize with reset values from the datasheet.
-    data->acc_odr = BOSCH_BMI270_ACC_ODR_100_HZ;
+    data->acc_odr = BOSCH_BMI270_ACC_ODR_25D32_HZ;
     data->acc_range = 8;
-    data->gyr_odr = BOSCH_BMI270_GYR_ODR_200_HZ;
+    data->gyr_odr = BOSCH_BMI270_GYR_ODR_25_HZ;
     data->gyr_range = 2000;
 
     if (bmi2_configure_enable_all(p_dev, data) != BMI2_OK) {

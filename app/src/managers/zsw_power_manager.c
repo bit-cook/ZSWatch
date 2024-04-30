@@ -37,7 +37,7 @@ LOG_MODULE_REGISTER(zsw_power_manager, LOG_LEVEL_INF);
 #ifdef CONFIG_BOARD_NATIVE_POSIX
 #define IDLE_TIMEOUT_SECONDS    UINT32_MAX
 #else
-#define IDLE_TIMEOUT_SECONDS    CONFIG_POWER_MANAGEMENT_IDLE_TIMEOUT_SECONDS
+#define IDLE_TIMEOUT_SECONDS    10
 #endif
 
 #define POWER_MANAGEMENT_MIN_ACTIVE_PERIOD_SECONDS                  1
@@ -70,7 +70,7 @@ static void enter_inactive(void)
 {
     // Minimum time the device should stay active before switching back to inactive.
     if ((k_uptime_get_32() - last_wakeup_time) < (POWER_MANAGEMENT_MIN_ACTIVE_PERIOD_SECONDS * 1000UL)) {
-        return;
+        //return;
     }
 
     LOG_INF("Enter inactive");
@@ -82,8 +82,8 @@ static void enter_inactive(void)
     zsw_cpu_set_freq(ZSW_CPU_FREQ_DEFAULT, true);
 
     // Screen inactive -> wait for NO_MOTION interrupt in order to power off display regulator.
-    zsw_imu_feature_enable(ZSW_IMU_FEATURE_NO_MOTION, true);
-    zsw_imu_feature_disable(ZSW_IMU_FEATURE_ANY_MOTION);
+    ////zsw_imu_feature_enable(ZSW_IMU_FEATURE_NO_MOTION, true);
+    //zsw_imu_feature_disable(ZSW_IMU_FEATURE_ANY_MOTION);
 
     update_and_publish_state(ZSW_ACTIVITY_STATE_INACTIVE);
 }
@@ -192,8 +192,8 @@ static void zbus_accel_data_callback(const struct zbus_channel *chan)
                 is_stationary = true;
                 last_pwr_off_time = k_uptime_get();
                 zsw_display_control_pwr_ctrl(false);
-                zsw_imu_feature_enable(ZSW_IMU_FEATURE_ANY_MOTION, true);
-                zsw_imu_feature_disable(ZSW_IMU_FEATURE_NO_MOTION);
+                ////zsw_imu_feature_enable(ZSW_IMU_FEATURE_ANY_MOTION, true);
+                //zsw_imu_feature_disable(ZSW_IMU_FEATURE_NO_MOTION);
 
                 update_and_publish_state(ZSW_ACTIVITY_STATE_NOT_WORN_STATIONARY);
             }
@@ -207,7 +207,7 @@ static void zbus_accel_data_callback(const struct zbus_channel *chan)
                 zsw_display_control_sleep_ctrl(false);
                 retained.display_off_time += k_uptime_get_32() - last_pwr_off_time;
                 zsw_retained_ram_update();
-                zsw_imu_feature_enable(ZSW_IMU_FEATURE_NO_MOTION, true);
+                //zsw_imu_feature_enable(ZSW_IMU_FEATURE_NO_MOTION, true);
                 zsw_imu_feature_disable(ZSW_IMU_FEATURE_ANY_MOTION);
 
                 update_and_publish_state(ZSW_ACTIVITY_STATE_INACTIVE);
@@ -268,9 +268,17 @@ static int zsw_power_manager_init(void)
         idle_timeout_seconds = UINT32_MAX;
     }
 
-    zsw_cpu_set_freq(ZSW_CPU_FREQ_FAST, true);
+    zsw_cpu_set_freq(ZSW_CPU_FREQ_DEFAULT, true);
 
-    k_work_schedule(&idle_work, K_SECONDS(idle_timeout_seconds));
+    //k_work_schedule(&idle_work, K_SECONDS(idle_timeout_seconds));
+    enter_inactive();
+    is_stationary = true;
+    last_pwr_off_time = k_uptime_get();
+    zsw_display_control_pwr_ctrl(false);
+    //zsw_imu_feature_enable(ZSW_IMU_FEATURE_ANY_MOTION, true);
+    zsw_imu_feature_disable(ZSW_IMU_FEATURE_NO_MOTION);
+
+    update_and_publish_state(ZSW_ACTIVITY_STATE_NOT_WORN_STATIONARY);
     return 0;
 }
 

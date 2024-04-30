@@ -131,7 +131,7 @@
 };
 
 &timer1 {
-    status = "okay";
+    status = "disabled";
 };
 
 &i2c3 {

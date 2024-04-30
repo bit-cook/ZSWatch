@@ -44,8 +44,8 @@
 LOG_MODULE_REGISTER(watcface_app, LOG_LEVEL_WRN);
 
 #define MAX_WATCHFACES  5
-#define NORMAL_TIME_UPDATE_INTERVAL   K_MSEC(1000)
-#define SMOOTH_TIME_UPDATE_INTERVAL   K_MSEC(50)
+#define NORMAL_TIME_UPDATE_INTERVAL   K_MSEC(10000)
+#define SMOOTH_TIME_UPDATE_INTERVAL   K_MSEC(5000)
 
 static void zbus_ble_comm_data_callback(const struct zbus_channel *chan);
 static void zbus_accel_data_callback(const struct zbus_channel *chan);

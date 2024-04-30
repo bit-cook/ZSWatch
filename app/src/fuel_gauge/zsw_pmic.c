@@ -247,4 +247,4 @@ static int zsw_pmic_init(void)
     return 0;
 }
 
-SYS_INIT(zsw_pmic_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+//SYS_INIT(zsw_pmic_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);

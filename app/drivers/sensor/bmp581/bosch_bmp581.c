@@ -83,6 +83,7 @@ static void bmp5_delay_us(uint32_t period, void *p_intf)
 */
 static int8_t bmp5_set_config(struct bmp5_osr_odr_press_config *p_cfg, struct bmp5_dev *p_dev)
 {
+    return 0;
     int8_t rslt;
     struct bmp5_iir_config set_iir_cfg;
 
@@ -124,6 +125,7 @@ static int8_t bmp5_set_config(struct bmp5_osr_odr_press_config *p_cfg, struct bm
 static int bmp581_attr_set(const struct device *p_dev, enum sensor_channel channel, enum sensor_attribute attribute,
                              const struct sensor_value *p_value)
 {
+    return 0;
     __ASSERT_NO_MSG(p_value != NULL);
 
     if (((channel != SENSOR_CHAN_ALL) && (channel != SENSOR_CHAN_AMBIENT_TEMP) && (channel != SENSOR_CHAN_PRESS)) ||
@@ -179,6 +181,7 @@ static int bmp581_attr_set(const struct device *p_dev, enum sensor_channel chann
 static int bmp581_attr_get(const struct device *p_dev, enum sensor_channel channel, enum sensor_attribute attribute,
                              struct sensor_value *p_value)
 {
+    return 0;
     __ASSERT_NO_MSG(p_value != NULL);
 
     if (((channel != SENSOR_CHAN_ALL) && (channel != SENSOR_CHAN_AMBIENT_TEMP) && (channel != SENSOR_CHAN_PRESS)) ||
@@ -225,6 +228,7 @@ static int bmp581_attr_get(const struct device *p_dev, enum sensor_channel chann
 */
 static int bmp581_sample_fetch(const struct device *p_dev, enum sensor_channel channel)
 {
+    return;
     enum pm_device_state pm_state;
     struct bmp5_sensor_data *data = p_dev->data;
 
@@ -255,7 +259,7 @@ static int bmp581_sample_fetch(const struct device *p_dev, enum sensor_channel c
 static int bmp581_channel_get(const struct device *p_dev, enum sensor_channel channel, struct sensor_value *p_value)
 {
 	const struct bmp5_sensor_data *data = p_dev->data;
-
+    return;
     __ASSERT_NO_MSG(p_value != NULL);
 
     if (channel == SENSOR_CHAN_AMBIENT_TEMP) {
@@ -309,6 +313,8 @@ static int bmp581_init(const struct device *p_dev)
         rslt = bmp5_soft_reset(&bmp5_dev);
     }
 
+    return 0;
+
     if (rslt == BMP5_OK) {
         if (bmp5_set_config(&bmp5_osr_odr_press_cfg, &bmp5_dev) != BMP5_OK) {
             return -EFAULT;
@@ -325,6 +331,7 @@ static int bmp581_init(const struct device *p_dev)
 #ifdef CONFIG_PM_DEVICE
 static int bmp581_pm_action(const struct device *p_dev, enum pm_device_action action)
 {
+    return 0;
     int8_t rslt;
 
     switch (action) {

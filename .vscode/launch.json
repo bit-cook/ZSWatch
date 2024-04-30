@@ -6,7 +6,9 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/app/build/zephyr/zephyr.exe",
-            "args": ["--bt-dev=hci0"],
+            "args": [
+                "--bt-dev=hci0"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "Disable BT",
@@ -15,12 +17,44 @@
             "MIMode": "gdb",
             "miDebuggerPath": "${workspaceFolder}/.vscode/sudo_gdb.sh",
             "setupCommands": [
-            {
-                "description": "Enable pretty-printing for gdb",
-                "text": "-enable-pretty-printing",
-                "ignoreFailures": true
-            }
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
             ]
+        },
+        {
+            "type": "nrf-connect",
+            "request": "launch",
+            "name": "Launch build_dk",
+            "config": "${workspaceFolder}/app/build_dk",
+            "runToEntryPoint": "main",
+            "flash": false
+        },
+        {
+            "type": "nrf-connect",
+            "request": "launch",
+            "name": "Launch build_debug_v5_rtt",
+            "config": "${workspaceFolder}/app/build_debug_v5_rtt",
+            "runToEntryPoint": "main",
+            "flash": false
+        },
+        {
+            "type": "nrf-connect",
+            "request": "launch",
+            "name": "Launch build_dbg_v4",
+            "config": "${workspaceFolder}/app/build_dbg_v4",
+            "runToEntryPoint": "main",
+            "flash": false
+        },
+        {
+            "type": "nrf-connect",
+            "request": "launch",
+            "name": "Launch build_v5",
+            "config": "${workspaceFolder}/zephyr/samples/boards/nrf/system_off/build_v5",
+            "runToEntryPoint": "main",
+            "flash": false
         }
     ]
 }

@@ -18,7 +18,7 @@
 #include "bme68x.h"
 #include "bsec_interface.h"
 #include "bosch_bme68x_iaq.h"
-
+asdfghj
 LOG_MODULE_REGISTER(bosch_bsec, CONFIG_BME68X_IAQ_LOG_LEVEL);
 
 #define DT_DRV_COMPAT 					bosch_bme680
