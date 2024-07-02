@@ -20,8 +20,8 @@
 #include "managers/zsw_notification_manager.h"
 
 #if CONFIG_WATCHFACE_BACKGROUND_SPACE
-LV_IMG_DECLARE(space_blur_bg);
-const lv_img_dsc_t *global_watchface_bg_img = &space_blur_bg;
+LV_IMG_DECLARE(watchface_A26_bg_v1);
+const lv_img_dsc_t *global_watchface_bg_img = &watchface_A26_bg_v1;
 #elif CONFIG_WATCHFACE_BACKGROUND_FLOWER
 LV_IMG_DECLARE(flower_watchface_bg);
 const lv_img_dsc_t *global_watchface_bg_img = &flower_watchface_bg;
