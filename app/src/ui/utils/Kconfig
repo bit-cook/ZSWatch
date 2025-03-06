@@ -1,2 +1,0 @@
-config STORE_IMAGES_EXTERNAL_FLASH
-	bool "Store UI Images into the External Flash"

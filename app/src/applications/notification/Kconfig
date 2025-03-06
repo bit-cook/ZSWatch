@@ -1,3 +1,0 @@
-module = NOTIFICATION_APP
-module-str = NOTIFICATION_APP
-source "subsys/logging/Kconfig.template.log_config"

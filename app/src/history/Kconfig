@@ -1,3 +1,0 @@
-module = ZSW_HISTORY
-module-str = ZSW_HISTORY
-source "subsys/logging/Kconfig.template.log_config"

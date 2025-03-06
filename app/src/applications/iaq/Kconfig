@@ -1,3 +1,0 @@
-module = IAQ_APP
-module-str = IAQ_APP
-source "subsys/logging/Kconfig.template.log_config"

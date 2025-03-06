@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://your-docusaurus-site.example.com/ZSWatch/blog</id>
+    <title>ZSWatch Blog</title>
+    <updated>2025-03-06T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://your-docusaurus-site.example.com/ZSWatch/blog"/>
+    <subtitle>ZSWatch Blog</subtitle>
+    <icon>https://your-docusaurus-site.example.com/ZSWatch/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Funding]]></title>
+        <id>https://your-docusaurus-site.example.com/ZSWatch/blog/funding</id>
+        <link href="https://your-docusaurus-site.example.com/ZSWatch/blog/funding"/>
+        <updated>2025-03-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[We received funding from the NLnet Foundation!]]></summary>
+        <content type="html"><![CDATA[<p>We received funding from the <a href="https://nlnet.nl/project/ZSWatch/" target="_blank" rel="noopener noreferrer">NLnet Foundation</a>!</p>
+<p>Lots of stuff</p>
+<ul>
+<li>New document and blog website</li>
+<li>...</li>
+</ul>]]></content>
+        <author>
+            <name>Jakob Krantz</name>
+            <uri>https://jakobkrantz.se</uri>
+        </author>
+        <author>
+            <name>Daniel Kampert</name>
+            <uri>https://github.com/Kampi</uri>
+        </author>
+        <category label="ZSWatch" term="ZSWatch"/>
+        <category label="NLnet Foundation" term="NLnet Foundation"/>
+    </entry>
+</feed>
