@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>ZSWatch Blog</title>
-        <link>https://your-docusaurus-site.example.com/ZSWatch/blog</link>
+        <link>https://zswatch.dev/blog</link>
         <description>ZSWatch Blog</description>
         <lastBuildDate>Thu, 06 Mar 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,8 +10,8 @@
         <language>en</language>
         <item>
             <title><![CDATA[Funding]]></title>
-            <link>https://your-docusaurus-site.example.com/ZSWatch/blog/funding</link>
-            <guid>https://your-docusaurus-site.example.com/ZSWatch/blog/funding</guid>
+            <link>https://zswatch.dev/blog/funding</link>
+            <guid>https://zswatch.dev/blog/funding</guid>
             <pubDate>Thu, 06 Mar 2025 00:00:00 GMT</pubDate>
             <description><![CDATA[We received funding from the NLnet Foundation!]]></description>
             <content:encoded><![CDATA[<p>We received funding from the <a href="https://nlnet.nl/project/ZSWatch/" target="_blank" rel="noopener noreferrer">NLnet Foundation</a>!</p>
