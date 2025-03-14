@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[903],{1912:e=>{e.exports=JSON.parse('{"blogBasePath":"/ZSWatch/blog","blogTitle":"Blog","authorsListPath":"/ZSWatch/blog/authors"}')}}]);
