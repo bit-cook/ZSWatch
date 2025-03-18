@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://your-docusaurus-site.example.com/ZSWatch/blog</id>
+    <id>https://zswatch.dev/blog</id>
     <title>ZSWatch Blog</title>
     <updated>2025-03-14T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://your-docusaurus-site.example.com/ZSWatch/blog"/>
+    <link rel="alternate" href="https://zswatch.dev/blog"/>
     <subtitle>ZSWatch Blog</subtitle>
-    <icon>https://your-docusaurus-site.example.com/ZSWatch/img/favicon.ico</icon>
+    <icon>https://zswatch.dev/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Funding]]></title>
-        <id>https://your-docusaurus-site.example.com/ZSWatch/blog/funding</id>
-        <link href="https://your-docusaurus-site.example.com/ZSWatch/blog/funding"/>
+        <id>https://zswatch.dev/blog/funding</id>
+        <link href="https://zswatch.dev/blog/funding"/>
         <updated>2025-03-14T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[We received funding from the NLnet Foundation!]]></summary>
-        <content type="html"><![CDATA[<h3 class="anchor anchorWithStickyNavbar_LWe7" id="we-received-funding-from-the-nlnet-foundation"><strong>We received funding from the <a href="https://nlnet.nl/project/ZSWatch/" target="_blank" rel="noopener noreferrer">NLnet Foundation</a>!</strong><a href="https://your-docusaurus-site.example.com/ZSWatch/blog/funding#we-received-funding-from-the-nlnet-foundation" class="hash-link" aria-label="Direct link to we-received-funding-from-the-nlnet-foundation" title="Direct link to we-received-funding-from-the-nlnet-foundation">​</a></h3>
+        <content type="html"><![CDATA[<h3 class="anchor anchorWithStickyNavbar_LWe7" id="we-received-funding-from-the-nlnet-foundation"><strong>We received funding from the <a href="https://nlnet.nl/project/ZSWatch/" target="_blank" rel="noopener noreferrer">NLnet Foundation</a>!</strong><a href="https://zswatch.dev/blog/funding#we-received-funding-from-the-nlnet-foundation" class="hash-link" aria-label="Direct link to we-received-funding-from-the-nlnet-foundation" title="Direct link to we-received-funding-from-the-nlnet-foundation">​</a></h3>
 <!-- -->
-<p float="left"><img src="https://your-docusaurus-site.example.com/ZSWatch/assets/images/ZSWatch_logo_with_text-72f48899e46d99fda791397c9a456811.png" width="33%"><img src="https://your-docusaurus-site.example.com/ZSWatch/assets/images/NGI0Core_tag-3a860411da708e87a7e351d03889eedd.png" width="33%"><img src="https://your-docusaurus-site.example.com/ZSWatch/assets/images/nlnet_banner-cd0288bc07d92e3de932043593ba2c70.png" width="33%"></p>
+<p float="left"><img src="https://zswatch.dev/assets/images/ZSWatch_logo_with_text-72f48899e46d99fda791397c9a456811.png" width="33%"><img src="https://zswatch.dev/assets/images/NGI0Core_tag-3a860411da708e87a7e351d03889eedd.png" width="33%"><img src="https://zswatch.dev/assets/images/nlnet_banner-cd0288bc07d92e3de932043593ba2c70.png" width="33%"></p>
+<p>Click title to read more!</p>
 <p>For the last few months there have not been much progress in ZSWatch. <strong>But</strong> that's about to change, because we have received 50 000 € from the <a href="https://nlnet.nl/project/ZSWatch/" target="_blank" rel="noopener noreferrer">NLnet Foundation</a> to take ZSWatch to the next level!</p>
 <p>The NLnet Foundation is funded by the European Commission's <em>Next Generation Internet</em>:</p>
 <blockquote>
 <p>We support organisations and people who contribute to an open internet for all. We fund projects that help fix the internet through open hardware, open software, open standards, open science and open data.</p>
 </blockquote>
 <p>Which ZSWatch falls pretty well under.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-the-funding-will-be-used">How the funding will be used<a href="https://your-docusaurus-site.example.com/ZSWatch/blog/funding#how-the-funding-will-be-used" class="hash-link" aria-label="Direct link to How the funding will be used" title="Direct link to How the funding will be used">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-the-funding-will-be-used">How the funding will be used<a href="https://zswatch.dev/blog/funding#how-the-funding-will-be-used" class="hash-link" aria-label="Direct link to How the funding will be used" title="Direct link to How the funding will be used">​</a></h3>
 <p>The funding will allow <a href="https://github.com/jakkra" target="_blank" rel="noopener noreferrer">me</a> to work 50% and <a href="https://github.com/kampi" target="_blank" rel="noopener noreferrer">Daniel</a> to work 20% on ZSWatch. The rest of the money will go to hardware and hardware prototyping costs. The funded project will run for 1 year.</p>
 <p>The goal is to both rework and improve ZSWatch. Mainly to make it more accessible to a broader audience and grow the community. This will be done by making it cheaper, easier to assemble and use more accessible parts.</p>
 <p><strong>Our goal is within one year have a robust watch that is easy to assembly that you can easily get your hands on!</strong></p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="high-level-plan">High level plan<a href="https://your-docusaurus-site.example.com/ZSWatch/blog/funding#high-level-plan" class="hash-link" aria-label="Direct link to High level plan" title="Direct link to High level plan">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="high-level-plan">High level plan<a href="https://zswatch.dev/blog/funding#high-level-plan" class="hash-link" aria-label="Direct link to High level plan" title="Direct link to High level plan">​</a></h3>
 <p>There are so much more details defined, but including that would make this post very long. So here is the high level tasks we aim to finish.</p>
 <div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>Goals</div><div class="admonitionContent_BuS1"><ul>
 <li>New daughter board for health tracking.<!-- -->
@@ -77,13 +78,13 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[ZSWatch Intro]]></title>
-        <id>https://your-docusaurus-site.example.com/ZSWatch/blog/intro</id>
-        <link href="https://your-docusaurus-site.example.com/ZSWatch/blog/intro"/>
+        <id>https://zswatch.dev/blog/intro</id>
+        <link href="https://zswatch.dev/blog/intro"/>
         <updated>2025-03-13T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[If you have not heard of ZSWatch before, here is a short intro!]]></summary>
         <content type="html"><![CDATA[<p>If you have not heard of ZSWatch before, here is a short intro!</p>
 <!-- -->
-<img src="https://your-docusaurus-site.example.com/ZSWatch/assets/images/ZSWatch_logo_with_text-72f48899e46d99fda791397c9a456811.png">
+<img src="https://zswatch.dev/assets/images/ZSWatch_logo_with_text-72f48899e46d99fda791397c9a456811.png">
 <p>ZSWatch is a free and open source smartwatch you can build almost from scratch - including software, hardware, and mechanics. Everything from the lowest level BLE radio driver code to PCB and casing is available for introspection or to be customised to suit your needs.</p>
 <p>TODO: Write more intro to new people</p>]]></content>
         <author>
