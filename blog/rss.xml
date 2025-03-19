@@ -4,24 +4,38 @@
         <title>ZSWatch Blog</title>
         <link>https://zswatch.dev/blog</link>
         <description>ZSWatch Blog</description>
-        <lastBuildDate>Fri, 14 Mar 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 19 Mar 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Looking for feedback]]></title>
+            <link>https://zswatch.dev/blog/feedback</link>
+            <guid>https://zswatch.dev/blog/feedback</guid>
+            <pubDate>Wed, 19 Mar 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[We will be doing a redesign of much of the ZSWatch hardware. Before getting too deep into it we would like to collect some feedback and ideas.]]></description>
+            <content:encoded><![CDATA[<p>We will be doing a redesign of much of the ZSWatch hardware. Before getting too deep into it we would like to collect some feedback and ideas.
+Please fill in the form below.</p>
+<p>If the embedded form doesn't work for some reason you can fill it in <a href="https://docs.google.com/forms/d/e/1FAIpQLSc5x3omDgfKNch9FyK3_1oTg-3tS38z_F2DC7QWCfxR-AVKDg/viewform?usp=sharing" target="_blank" rel="noopener noreferrer">here too.</a></p>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc5x3omDgfKNch9FyK3_1oTg-3tS38z_F2DC7QWCfxR-AVKDg/viewform?embedded=true" width="640" height="1900" frameborder="0" marginheight="0" marginwidth="0">Läser in …</iframe>
+<form class="signup_Jd1d" action="https://zswatch.pikapod.net/subscription/form" method="post"><div class="center_lsS9"><div class="signupTitle_Ta4P">Sign up for updates here</div><input type="hidden" name="nonce"><div><input type="email" required="" placeholder="Enter your email" class="emailInput_uoO2" name="email"><input type="submit" class="subscribeBtn_r9gI" value="Subscribe"></div><p hidden=""><input id="2cca0" type="checkbox" name="l" checked="" value="2cca0c50-ef0d-4339-b695-9e559f4a4359"><label for="2cca0">ZSWatch Test List</label><br></p></div></form>]]></content:encoded>
+            <category>ZSWatch</category>
+            <category>feedback</category>
+        </item>
         <item>
             <title><![CDATA[We received funding!]]></title>
             <link>https://zswatch.dev/blog/funding</link>
             <guid>https://zswatch.dev/blog/funding</guid>
             <pubDate>Fri, 14 Mar 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[For the last few months there have not been much progress in ZSWatch. But that's about to change, because we have received 50 000 € from the NLnet Foundation to take ZSWatch to the next level!]]></description>
+            <description><![CDATA[For the last few months there have not been much progress in ZSWatch. But that's about to change because we have received 50 000 € from the NLnet Foundation to take ZSWatch to the next level!]]></description>
             <content:encoded><![CDATA[<p float="left"><img src="https://zswatch.dev/assets/images/ZSWatch_logo_with_text-72f48899e46d99fda791397c9a456811.png" width="33%"><img src="https://zswatch.dev/assets/images/NGI0Core_tag-3a860411da708e87a7e351d03889eedd.png" width="33%"><img src="https://zswatch.dev/assets/images/nlnet_banner-cd0288bc07d92e3de932043593ba2c70.png" width="33%"></p>
-<p>For the last few months there have not been much progress in ZSWatch. <strong>But</strong> that's about to change, because we have received 50 000 € from the <a href="https://nlnet.nl/project/ZSWatch/" target="_blank" rel="noopener noreferrer">NLnet Foundation</a> to take ZSWatch to the next level!</p>
+<p>For the last few months there have not been much progress in ZSWatch. <strong>But</strong> that's about to change because we have received 50 000 € from the <a href="https://nlnet.nl/project/ZSWatch/" target="_blank" rel="noopener noreferrer">NLnet Foundation</a> to take ZSWatch to the next level!</p>
 <p>The NLnet Foundation is funded by the European Commission's <em>Next Generation Internet</em>:</p>
 <blockquote>
 <p>We support organisations and people who contribute to an open internet for all. We fund projects that help fix the internet through open hardware, open software, open standards, open science and open data.</p>
 </blockquote>
 <p>Which ZSWatch falls pretty well under.</p>
-<p>Below we go into more details about what this means.</p>
+<p>Here we go into more details about what this means.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="how-the-funding-will-be-used">How the funding will be used<a href="https://zswatch.dev/blog/funding#how-the-funding-will-be-used" class="hash-link" aria-label="Direct link to How the funding will be used" title="Direct link to How the funding will be used">​</a></h3>
 <p>The funding will allow <a href="https://github.com/jakkra" target="_blank" rel="noopener noreferrer">me</a> to work 50% and <a href="https://github.com/kampi" target="_blank" rel="noopener noreferrer">Daniel</a> to work 20% on ZSWatch. The rest of the money will go to hardware and hardware prototyping costs. The funded project will run for 1 year.</p>
 <p>The goal is to both rework and improve ZSWatch. Mainly to make it more accessible to a broader audience and grow the community. This will be done by making it cheaper, easier to assemble and use more accessible parts. Right now getting all parts and assembling a ZSWatch is not super easy, this we aim to change!</p>
@@ -65,13 +79,14 @@
 </li>
 <li>Phone integration improvements.</li>
 </ul></div></div>
+<p>Also we are looking for feedback, see the <a href="https://zswatch.dev/blog/feedback">Feedback Blog Post</a></p>
 <p>We will post updates of our progress so don't forget to sign up for our email list!</p>
 <form class="signup_Jd1d" action="https://zswatch.pikapod.net/subscription/form" method="post"><div class="center_lsS9"><div class="signupTitle_Ta4P">Sign up for updates here</div><input type="hidden" name="nonce"><div><input type="email" required="" placeholder="Enter your email" class="emailInput_uoO2" name="email"><input type="submit" class="subscribeBtn_r9gI" value="Subscribe"></div><p hidden=""><input id="2cca0" type="checkbox" name="l" checked="" value="2cca0c50-ef0d-4339-b695-9e559f4a4359"><label for="2cca0">ZSWatch Test List</label><br></p></div></form>]]></content:encoded>
             <category>ZSWatch</category>
             <category>NLnet Foundation</category>
         </item>
         <item>
-            <title><![CDATA[ZSWatch Intro]]></title>
+            <title><![CDATA[What is ZSWatch]]></title>
             <link>https://zswatch.dev/blog/intro</link>
             <guid>https://zswatch.dev/blog/intro</guid>
             <pubDate>Thu, 13 Mar 2025 00:00:00 GMT</pubDate>
