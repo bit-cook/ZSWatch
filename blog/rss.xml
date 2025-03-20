@@ -94,14 +94,12 @@ Please fill in the form below.</p>
             <content:encoded><![CDATA[<p>If you have not heard of ZSWatch before, here is a short intro!</p>
 <!-- -->
 <!-- -->
-<!-- -->
-<!-- -->
 <p>Built on the <a href="https://www.zephyrproject.org/" target="_blank" rel="noopener noreferrer">Zephyr™ Project</a> RTOS, hence the name <strong>ZSWatch</strong> - <em>Zephyr Smartwatch</em>.</p>
 <p>ZSWatch is a free and open source smartwatch you can build almost from scratch - including software, hardware, and mechanics. Everything from the lowest level BLE radio driver code to PCB and casing is available and can be customised to suit your needs.</p>
 <center>How ZSWatch looks like today.</center>
-<img src="https://zswatch.dev/assets/images/stainless_front_wide-1cd0110ad601ac804fa6bfc51dc6ca85.JPG">
-<img src="https://zswatch.dev/assets/images/clear_front_wide-e083e1ebd049785d978ca19289d8e5eb.JPG">
-<img src="https://zswatch.dev/assets/images/stainless_stand-42af7c6b0b70edaac2387b62925c8a48.JPG">
+<img src="https://zswatch.dev/assets/images/stainless_front_wide-22e4836b48c8a2b9bd15aa25129d20a9.JPG">
+<img src="https://zswatch.dev/assets/images/clear_front_wide-d6b4d278a50a7a4773ed2409df869256.JPG">
+<img src="https://zswatch.dev/assets/images/stainless_stand-9c6b90a37cb89673a33ab2075864662f.JPG">
 <p></p>
 <center>Video walking through some of the UI and features.</center>
 <div style="width:100%;height:360px"></div>
