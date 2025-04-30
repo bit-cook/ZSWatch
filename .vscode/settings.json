@@ -21,5 +21,22 @@
     "search.useIgnoreFiles": false,
     "[c]": {
         "editor.defaultFormatter": "chiehyu.vscode-astyle"
+    },
+    "files.associations": {
+        "log.h": "c",
+        "zsw_filesystem.h": "c",
+        "flash_map.h": "c",
+        "chrono": "c",
+        "variant": "c",
+        "source_location": "c",
+        "random": "c",
+        "update_ui.h": "c",
+        "image.h": "c",
+        "img_mgmt_callbacks.h": "c",
+        "smp_bt.h": "c",
+        "img_mgmt.h": "c",
+        "bootmode.h": "c",
+        "sstream": "c",
+        "regex": "c"
     }
 }
