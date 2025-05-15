@@ -4,10 +4,55 @@
         <title>ZSWatch Blog</title>
         <link>https://zswatch.dev/blog</link>
         <description>ZSWatch Blog</description>
-        <lastBuildDate>Wed, 19 Mar 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 15 May 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Health PCB and Firmware Update]]></title>
+            <link>https://zswatch.dev/blog/progress-hr-fota</link>
+            <guid>https://zswatch.dev/blog/progress-hr-fota</guid>
+            <pubDate>Thu, 15 May 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[It's now been two months since our last update and a new one is very much due!]]></description>
+            <content:encoded><![CDATA[<p>It's now been two months since our last update and a new one is very much due!</p>
+<p>We’ve hit two major milestones:</p>
+<ul>
+<li>A prototype PCB for health tracking</li>
+<li>Firmware updates over USB and BLE</li>
+</ul>
+<img src="https://zswatch.dev/assets/images/hr-c78029319a0701ee61bf8a1084c5aebb.jpg">
+<p>Let’s dive into the details....</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="health-tracking-prototype">Health Tracking Prototype<a href="https://zswatch.dev/blog/progress-hr-fota#health-tracking-prototype" class="hash-link" aria-label="Direct link to Health Tracking Prototype" title="Direct link to Health Tracking Prototype">​</a></h3>
+<p>We’ve completed the design and assembly of a prototype board to validate the future health-tracking add-on PCB for ZSWatch. This board helps us test components, write drivers, and troubleshoot more easily before moving to a final compact version.</p>
+<p>To simplify testing, we integrated an <strong>nRF54L15 BLE MCU</strong>, allowing the board to operate as a standalone unit.</p>
+<p>The cool part? It can stream heart rate data live to the ZSWatch over Bluetooth! Below is a quick demo of heart rate data being plotted in real time. It's still very much a hacky prototype—but it works.</p>
+<img src="https://zswatch.dev/assets/images/hr_ble-9fc18b18688da18d738fe51b1b592167.jpg">
+<p>Check out the in-progress driver and app here:<br>
+<a href="https://github.com/ZSWatch/Zephyr-MAX32664C" target="_blank" rel="noopener noreferrer">https://github.com/ZSWatch/Zephyr-MAX32664C</a></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="firmware-updates-via-ble-and-usb">Firmware Updates via BLE and USB<a href="https://zswatch.dev/blog/progress-hr-fota#firmware-updates-via-ble-and-usb" class="hash-link" aria-label="Direct link to Firmware Updates via BLE and USB" title="Direct link to Firmware Updates via BLE and USB">​</a></h3>
+<p>We’ve added a bootloader, which means you can now update the ZSWatch firmware wirelessly via BLE—or through USB (in case ZSWatch firmware breaks and Bluetooth isn’t available.).</p>
+<p>Even better: you can update directly from the <a href="https://zswatch.dev/update" target="_blank" rel="noopener noreferrer">Firmware Update page on zswatch.dev</a>.<br>
+<!-- -->Firmware artifacts are pulled from GitHub Actions automatically, making updates simple.</p>
+<p>We also added support for uploading the full <strong>filesystem image</strong>, which contains most UI assets.</p>
+<img src="https://zswatch.dev/assets/images/fota-e84e16bec7af6daab9f64e51c1c1be43.png">
+<p>Improvements for later:</p>
+<ul>
+<li>Ideally, only real known working releases should show</li>
+<li>Bundle firmware and filesystem into a single update process</li>
+</ul>
+<p>You can also update the firmware using <a href="https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-Device-Manager" target="_blank" rel="noopener noreferrer">nRF Connect Device Manager</a> or other tools listed in the <a href="https://docs.zephyrproject.org/latest/services/device_mgmt/mcumgr.html#tools-libraries" target="_blank" rel="noopener noreferrer">Zephyr documentation</a>.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="bonus-xip">Bonus (XIP)<a href="https://zswatch.dev/blog/progress-hr-fota#bonus-xip" class="hash-link" aria-label="Direct link to Bonus (XIP)" title="Direct link to Bonus (XIP)">​</a></h3>
+<p>Another smaller, but very important update is that we after some fiddling around got <strong>XIP (Execute-in-Place)</strong> working on ZSWatch, allowing code to be run directly from the external flash. It was essential to fit the bootloader and USB support, and it opens up a lot more headroom for the firmware going forward.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="next-up">Next up<a href="https://zswatch.dev/blog/progress-hr-fota#next-up" class="hash-link" aria-label="Direct link to Next up" title="Direct link to Next up">​</a></h3>
+<ul>
+<li>Evaluate the health tracking PCB’s performance</li>
+<li>Design a casing for wearing the health tracking PCB in order</li>
+</ul>
+<br>
+<p><em>Want to stay in the loop? Subscribe below for updates!</em></p>
+<form class="signup_Jd1d" action="https://zswatch.pikapod.net/subscription/form" method="post"><div class="center_lsS9"><div class="signupTitle_Ta4P">Sign up for updates here</div><input type="hidden" name="nonce"><div><input type="email" required="" placeholder="Enter your email" class="emailInput_uoO2" name="email"><input type="submit" class="subscribeBtn_r9gI" value="Subscribe"></div><a href="https://zswatch.dev/blog" class="blogReminder_Sf3u">Read the blog for latest info</a><p hidden=""><input id="2cca0" type="checkbox" name="l" checked="" value="2cca0c50-ef0d-4339-b695-9e559f4a4359"><label for="2cca0">ZSWatch Test List</label><br></p></div></form>]]></content:encoded>
+            <category>ZSWatch</category>
+        </item>
         <item>
             <title><![CDATA[Looking for feedback]]></title>
             <link>https://zswatch.dev/blog/feedback</link>
