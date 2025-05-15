@@ -19,7 +19,7 @@
 #include <zephyr/logging/log.h>
 #include <bluetooth/services/hrs_client.h>
 
-LOG_MODULE_REGISTER(ble_hrs_central);
+LOG_MODULE_REGISTER(ble_hrs_central, LOG_LEVEL_DBG);
 
 static struct bt_hrs_client hrs_c;
 static struct bt_hrs_client_measurement cached_measurement;
@@ -48,6 +48,7 @@ static void hrs_measurement_notify_cb(struct bt_hrs_client *hrs_c, const struct 
 		return;
 	}
 	last_measurement_timestamp = k_uptime_get();
+	LOG_INF("Received HR measurement: %d", meas->hr_value);
 	memcpy((void*)&cached_measurement, (void*)meas, sizeof(struct bt_hrs_client_measurement));
 }
 
@@ -70,8 +71,8 @@ static void on_discovery_completed(struct bt_gatt_dm *dm, void *context)
 
 	    err = bt_hrs_client_handles_assign(dm, &hrs_c);
 	    if (err) {
-		LOG_ERR("HRS client init failed (err %d)\n", err);
-		break;
+			LOG_ERR("HRS client init failed (err %d)\n", err);
+			break;
 	    }
 
 	    err = bt_hrs_client_measurement_subscribe(&hrs_c, hrs_measurement_notify_cb);
