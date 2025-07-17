@@ -22,7 +22,7 @@ menu "ZSWatch"
         config APPLICATIONS_USE_COMPASS
             bool
         prompt "Activate the application 'Compass'"
-        default yn
+        default n
 
         config APPLICATIONS_USE_INFO
             bool
