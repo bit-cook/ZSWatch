@@ -48,6 +48,21 @@
         };
     };
 
+    i2c2_default: i2c2_default {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 2)>,
+                    <NRF_PSEL(TWIM_SCL, 1, 1)>;
+        };
+    };
+
+    i2c2_sleep: i2c2_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 2)>,
+                    <NRF_PSEL(TWIM_SCL, 1, 1)>;
+            low-power-enable;
+        };
+    };
+
     qspi_default: qspi_default {
         group1 {
             psels = <NRF_PSEL(QSPI_IO0, 0, 13)>,
@@ -119,7 +134,9 @@
     aliases {
         spi-flash0 = &mx25u51245g;
         rtc = &rv_8263_c8;
-		touch-enable = &touch_enable_gpio;
+        touch-enable = &touch_enable_gpio;
+        periph-i2c = &i2c1;
+        touch-i2c = &i2c2;
     };
 
     fstab {
@@ -259,6 +276,7 @@
     npm1300_pmic: pmic@6b {
         compatible = "nordic,npm1300";
         reg = <0x6b>;
+        status = "okay";
         host-int-gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>;
         pmic-int-pin = <4>;
 
@@ -285,12 +303,10 @@
                 regulator-init-microvolt = <3000000>;
             };
 
-            // LDO1 is not used
             npm1300_ldo1: LDO1 {
                 status = "disabled";
             };
 
-            // LDO2 is not used
             npm1300_ldo2: LDO2 {
                 status = "disabled";
             };
