@@ -4,10 +4,67 @@
         <title>ZSWatch Blog</title>
         <link>https://zswatch.dev/blog</link>
         <description>ZSWatch Blog</description>
-        <lastBuildDate>Thu, 15 May 2025 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 30 Jul 2025 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Development Kit Prototype]]></title>
+            <link>https://zswatch.dev/blog/progress-devkit-prototype</link>
+            <guid>https://zswatch.dev/blog/progress-devkit-prototype</guid>
+            <pubDate>Wed, 30 Jul 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[We’ve made great progress on the hardware front! Our new development kit is the next step toward a more refined ZSWatch, and it allows us to test key features before shrinking everything down to the final form factor.]]></description>
+            <content:encoded><![CDATA[<p>We’ve made great progress on the hardware front! Our new development kit is the next step toward a more refined ZSWatch, and it allows us to test key features before shrinking everything down to the final form factor.</p>
+<p>This Devkit isn’t just for internal testing, it’s also for developers who want to get an early start building software for ZSWatch. It gives full access to all interfaces, and we’ll be sharing more info soon on how to get one.</p>
+<img src="https://zswatch.dev/assets/images/dk-7fa19d2e39705409f218d2a989f8d990.jpg" alt="ZSWatch Development Kit PCB">
+<p>Let’s dive into the details....</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="zswatch-development-kit">ZSWatch Development Kit<a href="https://zswatch.dev/blog/progress-devkit-prototype#zswatch-development-kit" class="hash-link" aria-label="Direct link to ZSWatch Development Kit" title="Direct link to ZSWatch Development Kit">​</a></h3>
+<p>As a first step in the next ZSWatch design, we created a Development Kit to try out all the new concepts before shrinking everything down to a compact PCB for the final watch.</p>
+<p>We’ve completed the prototype design and received the boards. We made a few mistakes, but nothing that couldn’t be manually patched on the PCBs, including:</p>
+<ul>
+<li>Misunderstood USB-C cable routing, so UART on the Dock was connected to SWD on the Devkit. Thankfully, this was easy to patch using the 0-ohm jumpers we had routed.</li>
+<li>The display LED driver didn’t handle unused LED channels well (we only used 2 out of 4), so we’ll switch back to the original driver, which is slightly larger but only has 2 channels—perfect for our use case.</li>
+<li>2-pin SMD headers were unstable and led to crooked soldering. We’re switching to through-hole headers in the next revision for better alignment.</li>
+<li>Shrink it down a bit for cheaper PCBs.</li>
+</ul>
+<p>Some of the Devkit features:</p>
+<ul>
+<li>Each component has its own power header, allowing easy power consumption debugging using a current profiler in ampere mode.</li>
+<li>Breakout of pins going to the Health Tracking PCB.</li>
+<li>I²S header for potential speaker support.</li>
+<li>USB-C connector for exposing ZSWatch signals.</li>
+</ul>
+<p>We also tested UV printing from PCBWay and it looks pretty nice! We'll tune the colors a bit in the next version. UV printing adds only a few dollars per PCB, so we think it's worth keeping.</p>
+<p>Each feature is laid out in its own area to make the board easy to explore. Headers allow easy access for current measurements.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todo-change-this-pciture">TODO: Change this pciture<a href="https://zswatch.dev/blog/progress-devkit-prototype#todo-change-this-pciture" class="hash-link" aria-label="Direct link to TODO: Change this pciture" title="Direct link to TODO: Change this pciture">​</a></h3>
+<img src="https://zswatch.dev/assets/images/dk-render-815ce6f9cd349119f86e4b7ce2914228.png" alt="ZSWatch Devkit render with labeled components">
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="devkit-and-dock-usb-c-interface">Devkit and Dock USB-C Interface<a href="https://zswatch.dev/blog/progress-devkit-prototype#devkit-and-dock-usb-c-interface" class="hash-link" aria-label="Direct link to Devkit and Dock USB-C Interface" title="Direct link to Devkit and Dock USB-C Interface">​</a></h3>
+<p>One of the biggest updates in this Devkit is the new USB-C interface, which replaces the hard-to-source magnetic connector we used previously.
+The final ZSWatch will have a waterproof USB-C connector that connects to a new "Dock". This connector utilizes the extra pins in USB 3 to expose SWD, UART, and RESET, in addition to standard USB functionality.</p>
+<img src="https://zswatch.dev/assets/images/dk-dock-65c9d0fe149e9c94b9ba2b820eb1f341.jpg" alt="ZSWatch USB-C Dock prototype">
+<div class="theme-admonition theme-admonition-tip admonition_xJq3 alert alert--success"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M6.5 0C3.48 0 1 2.19 1 5c0 .92.55 2.25 1 3 1.34 2.25 1.78 2.78 2 4v1h5v-1c.22-1.22.66-1.75 2-4 .45-.75 1-2.08 1-3 0-2.81-2.48-5-5.5-5zm3.64 7.48c-.25.44-.47.8-.67 1.11-.86 1.41-1.25 2.06-1.45 3.23-.02.05-.02.11-.02.17H5c0-.06 0-.13-.02-.17-.2-1.17-.59-1.83-1.45-3.23-.2-.31-.42-.67-.67-1.11C2.44 6.78 2 5.65 2 5c0-2.2 2.02-4 4.5-4 1.22 0 2.36.42 3.22 1.19C10.55 2.94 11 3.94 11 5c0 .66-.44 1.78-.86 2.48zM4 14h5c-.23 1.14-1.3 2-2.5 2s-2.27-.86-2.5-2z"></path></svg></span>tip</div><div class="admonitionContent_BuS1"><p>The dock is fully optional for none development use.</p></div></div>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="heres-a-high-level-diagram-of-how-it-works">Here’s a high-level diagram of how it works<a href="https://zswatch.dev/blog/progress-devkit-prototype#heres-a-high-level-diagram-of-how-it-works" class="hash-link" aria-label="Direct link to Here’s a high-level diagram of how it works" title="Direct link to Here’s a high-level diagram of how it works">​</a></h4>
+<p>The dock is optional and is meant to make development and debugging easier.</p>
+<img src="https://zswatch.dev/assets/images/usb.drawio-74e0bc688b2b99dab58de880ee55b816.png" alt="USB-C signal breakout schematic">
+<br>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>USB-C pin usage</summary><div><div class="collapsibleContent_i85q"><img src="https://zswatch.dev/assets/images/dock-usb-sch-d792a22761307c3beb5c42d832bd7c9e.png" alt="ZSWatch Dock USB-C schematic"></div></div></details>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="health-tracking-prototype">Health tracking prototype<a href="https://zswatch.dev/blog/progress-devkit-prototype#health-tracking-prototype" class="hash-link" aria-label="Direct link to Health tracking prototype" title="Direct link to Health tracking prototype">​</a></h3>
+<p><a href="https://github.com/kampi" target="_blank" rel="noopener noreferrer">Daniel</a> have made good progress in fixing up our initial driver for the MAX32664 Biometric Hub and now we get good readings from it. We will continue testing the performance. Read more about it <a href="https://www.linkedin.com/posts/daniel-kampert_zswatch-zswatch-zephyr-activity-7355485066313015297-EzP6" target="_blank" rel="noopener noreferrer">here in Daniels Linkedin post</a></p>
+<p>We are also working in <a href="https://github.com/zephyrproject-rtos/zephyr/pull/93484" target="_blank" rel="noopener noreferrer">upstreaming support for health data</a> and <a href="https://github.com/zephyrproject-rtos/zephyr/pull/93674" target="_blank" rel="noopener noreferrer">our driver to Zephyr</a>.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="next-up">Next up<a href="https://zswatch.dev/blog/progress-devkit-prototype#next-up" class="hash-link" aria-label="Direct link to Next up" title="Direct link to Next up">​</a></h3>
+<ul>
+<li>Order next PCB revision with fixes</li>
+<li>Begin integration of health-tracking components</li>
+<li>Finalize UV print color tuning</li>
+<li>Start work on new ZSWatch hosuing and design the PCB accordinly</li>
+</ul>
+<br>
+<p><em>Want to stay in the loop? Subscribe below for updates!</em></p>
+<form class="signup_Jd1d" action="https://zswatch.pikapod.net/subscription/form" method="post"><div class="center_lsS9"><div class="signupTitle_Ta4P">Sign up for updates here</div><input type="hidden" name="nonce"><div><input type="email" required="" placeholder="Enter your email" class="emailInput_uoO2" name="email"><input type="submit" class="subscribeBtn_r9gI" value="Subscribe"></div><a href="https://zswatch.dev/blog" class="blogReminder_Sf3u">Read the blog for latest info</a><p hidden=""><input id="2cca0" type="checkbox" name="l" checked="" value="2cca0c50-ef0d-4339-b695-9e559f4a4359"><label for="2cca0">ZSWatch Test List</label><br></p></div></form>]]></content:encoded>
+            <category>ZSWatch</category>
+        </item>
         <item>
             <title><![CDATA[Health PCB and Firmware Update]]></title>
             <link>https://zswatch.dev/blog/progress-hr-fota</link>
