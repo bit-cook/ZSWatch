@@ -35,8 +35,7 @@
 </ul>
 <p>We also tested UV printing from PCBWay and it looks pretty nice! We'll tune the colors a bit in the next version. UV printing adds only a few dollars per PCB, so we think it's worth keeping.</p>
 <p>Each feature is laid out in its own area to make the board easy to explore. Headers allow easy access for current measurements.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="todo-change-this-pciture">TODO: Change this pciture<a href="https://zswatch.dev/blog/progress-devkit-prototype#todo-change-this-pciture" class="hash-link" aria-label="Direct link to TODO: Change this pciture" title="Direct link to TODO: Change this pciture">​</a></h3>
-<img src="https://zswatch.dev/assets/images/dk-render-815ce6f9cd349119f86e4b7ce2914228.png" alt="ZSWatch Devkit render with labeled components">
+<img src="https://zswatch.dev/assets/images/dk-render-19ca7d63a2f684212ff6e48241e94564.png" alt="ZSWatch Devkit render with labeled components">
 <hr>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="devkit-and-dock-usb-c-interface">Devkit and Dock USB-C Interface<a href="https://zswatch.dev/blog/progress-devkit-prototype#devkit-and-dock-usb-c-interface" class="hash-link" aria-label="Direct link to Devkit and Dock USB-C Interface" title="Direct link to Devkit and Dock USB-C Interface">​</a></h3>
 <p>One of the biggest updates in this Devkit is the new USB-C interface, which replaces the hard-to-source magnetic connector we used previously.
@@ -52,6 +51,7 @@ The final ZSWatch will have a waterproof USB-C connector that connects to a new 
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="health-tracking-prototype">Health tracking prototype<a href="https://zswatch.dev/blog/progress-devkit-prototype#health-tracking-prototype" class="hash-link" aria-label="Direct link to Health tracking prototype" title="Direct link to Health tracking prototype">​</a></h3>
 <p><a href="https://github.com/kampi" target="_blank" rel="noopener noreferrer">Daniel</a> have made good progress in fixing up our initial driver for the MAX32664 Biometric Hub and now we get good readings from it. We will continue testing the performance. Read more about it <a href="https://www.linkedin.com/posts/daniel-kampert_zswatch-zswatch-zephyr-activity-7355485066313015297-EzP6" target="_blank" rel="noopener noreferrer">here in Daniels Linkedin post</a></p>
 <p>We are also working in <a href="https://github.com/zephyrproject-rtos/zephyr/pull/93484" target="_blank" rel="noopener noreferrer">upstreaming support for health data</a> and <a href="https://github.com/zephyrproject-rtos/zephyr/pull/93674" target="_blank" rel="noopener noreferrer">our driver to Zephyr</a>.</p>
+<img src="https://zswatch.dev/assets/images/hr_progress-b1f6c775cc23010d39e5b37b0334530a.png" alt="ZSWatch Devkit render with labeled components">
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="next-up">Next up<a href="https://zswatch.dev/blog/progress-devkit-prototype#next-up" class="hash-link" aria-label="Direct link to Next up" title="Direct link to Next up">​</a></h3>
 <ul>
 <li>Order next PCB revision with fixes</li>
