@@ -1,0 +1,4 @@
+devices:
+  watchdk@1:
+    jlink_serial: "1057713387"
+    serial_port: "/dev/ttyUSB0"

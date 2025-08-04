@@ -2,7 +2,7 @@ on: [workflow_call]
 
 jobs:
   test:
-    runs-on: self-hosted
+    runs-on: [self-hosted, x64]
     container: 
       image: ghcr.io/zephyrproject-rtos/ci:v0.27.4
       volumes:
@@ -12,25 +12,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
       - name: Install dependencies
         continue-on-error: true # JLink install will fail
         run: |
           if [ ! -f "`which JLinkExe`" ]; then
             echo "Installing JLink tools..."
-            wget -q --post-data 'accept_license_agreement=accepted&non_emb_ctr=confirmed&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_V826a_arm64.deb
+            sudo apt-get update
+            sudo apt-get install -y udev
+            wget -q --post-data 'accept_license_agreement=accepted&non_emb_ctr=confirmed&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_V856a_x86_64.deb
             sudo apt -qq update
-            sudo apt -y install ./JLink_Linux_V826a_arm64.deb &>/dev/null
+            sudo apt -y install ./JLink_Linux_V856a_x86_64.deb
           fi
 
           if [ ! -f "`which nrfjprog`" ]; then
             echo "Installing Nordic command line tools..."
-            wget -q https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-10-x-x/10-24-2/nrf-command-line-tools_10.24.2_arm64.deb
-            sudo apt -y install ./nrf-command-line-tools_10.24.2_arm64.deb &>/dev/null
+            wget -q https://nsscprodmedia.blob.core.windows.net/prod/software-and-other-downloads/desktop-software/nrf-command-line-tools/sw/versions-10-x-x/10-24-2/nrf-command-line-tools_10.24.2_amd64.deb
+            sudo apt -y install ./nrf-command-line-tools_10.24.2_amd64.deb
             export PATH=$PATH:/opt
           fi
 
@@ -40,7 +37,7 @@ jobs:
             wget -q https://github.com/NordicSemiconductor/nrf-udev/releases/download/v1.0.1/nrf-udev_1.0.1-all.deb
             sudo dpkg -i nrf-udev_1.0.1-all.deb
 
-            wget -q https://files.nordicsemi.com/artifactory/swtools/external/nrfutil/executables/aarch64-unknown-linux-gnu/nrfutil -o nrfutil
+            wget -q https://files.nordicsemi.com/artifactory/swtools/external/nrfutil/executables/x86_64-unknown-linux-gnu/nrfutil -o nrfutil
             sudo mv nrfutil /opt/nrfutil
             sudo chmod +x /opt/nrfutil
 
@@ -51,10 +48,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r app/pytest/requirements.txt
 
-      - name: 'Download image'
-        uses: actions/download-artifact@v4
-        with:
-          name: watchdk_nrf5340_cpuapp@1_debug
+      #- name: 'Download image'
+      #  uses: actions/download-artifact@v4
+      #  with:
+      #    name: watchdk_nrf5340_cpuapp@1_debug
 
       - name: Display structure of downloaded files
         run: ls
@@ -62,4 +59,5 @@ jobs:
       - name: Test with pytest
         run: |
           pip install pytest
-          pytest app/pytest/
+          cd app/pytest
+          pytest --board=watchdk@1
