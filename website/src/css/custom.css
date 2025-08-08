@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -18,7 +22,6 @@
   --ifm-hero-background-color: var(--zswatch-darker);
   --ifm-hero-text-color: var(--zswatch-secondary);
 }
-
 
 .toggleButton_gllP {
   color: var(--zswatch-darker);
@@ -59,4 +62,30 @@
 
 .navbar-sidebar__back {
   color: var(--zswatch-darker);
+}
+
+/* Remove ugly button outlines and improve button styling */
+button {
+  outline: none !important;
+  border: none;
+}
+
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--zswatch-secondary) !important;
+  outline-offset: 2px;
+}
+
+/* Ensure our custom buttons maintain their styling */
+.btn, [class*="bg-"], [class*="border-"] {
+  outline: none !important;
+}
+
+.btn:focus, [class*="bg-"]:focus, [class*="border-"]:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }

@@ -37,7 +37,7 @@
 #ifdef CONFIG_BT_ANCS_CLIENT
 #include <bluetooth/services/ancs_client.h>
 #endif
-LOG_MODULE_REGISTER(ble_comm, CONFIG_ZSW_BLE_LOG_LEVEL);
+LOG_MODULE_REGISTER(ble_comm, LOG_LEVEL_DBG);
 
 #define BLE_COMM_LONG_INT_MIN_MS                (400 / 1.25)
 #define BLE_COMM_LONG_INT_MAX_MS                (500 / 1.25)
