@@ -30,27 +30,7 @@ endfunction()
 apply_patches("patches/zephyr" $ENV{ZEPHYR_BASE})
 apply_patches("patches/ext_drivers" ${CMAKE_SOURCE_DIR}/src/ext_drivers)
 
-# Get the target hardware
-string(REGEX MATCH "zswatch@([0-9]+)/nrf5340.*" ZSWATCH_BOARD "${BOARD}")
-if(ZSWATCH_BOARD)
-    string(CONCAT VERSION_STRING "\"" ${CMAKE_MATCH_1} "\"")
-    set(CONFIG_ZSWATCH_PCB_REV ${CMAKE_MATCH_1} CACHE INTERNAL "")
-    set(CONFIG_BT_DIS_HW_REV_STR ${VERSION_STRING} CACHE INTERNAL "")
-
-    message("PCB revision: " ${CONFIG_ZSWATCH_PCB_REV})
-endif()
-
 set(BOARD_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
-
-macro(app_set_runner_args)
-    if (CONFIG_BOARD_ZSWATCH_NRF5340_CPUAPP AND CONFIG_BOARD_REVISION STREQUAL "5") 
-        board_runner_args(nrfjprog "--qspiini=${CMAKE_CURRENT_SOURCE_DIR}/qspi_mx25u51245.ini")
-    elseif(CONFIG_BOARD_ZSWATCH_NRF5340_CPUAPP AND CONFIG_BOARD_REVISION STREQUAL "4")
-        board_runner_args(nrfjprog "--qspiini=${CMAKE_CURRENT_SOURCE_DIR}/qspi_at25sl128a.ini")
-    else ()
-        message("Uploading firmware to external flash may fail. Default ini will be used.")
-    endif()
-endmacro()
 
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 project(ZSWatchFW)
@@ -138,6 +118,7 @@ set (LVGL_RELOCATE_SOURCES
     ../modules/lib/gui/lvgl/src/font/lv_font_montserrat_14.c
     ../modules/lib/gui/lvgl/src/font/lv_font_montserrat_16.c
     ../modules/lib/gui/lvgl/src/font/lv_font_montserrat_20.c
+    ../modules/lib/gui/lvgl/src/font/lv_font_montserrat_28.c
     ../modules/lib/gui/lvgl/src/widgets/chart/lv_chart.c
     ../modules/lib/gui/lvgl/src/widgets/scale/lv_scale.c
     ../modules/lib/gui/lvgl/src/widgets/dropdown/lv_dropdown.c

@@ -1,12 +1,72 @@
+# ZSWatch board configuration
+
+# Copyright (c) 2025 ZSWatch Project
+# SPDX-License-Identifier: Apache-2.0
+
 menu "Zephyr Kernel"
     source "Kconfig.zephyr"
 endmenu
 
 menu "ZSWatch"
-    config ZSWATCH_PCB_REV
-        int
-    prompt "ZSWatch PCB revision"
-    default 5
+    config ZSW_FW_UPDATE
+        bool
+    prompt "Enable firmware update"
+        select NORDIC_QSPI_NOR
+        select PM_OVERRIDE_EXTERNAL_DRIVER_CHECK
+        select PM_PARTITION_REGION_SETTINGS_STORAGE_EXTERNAL
+        select PM_PARTITION_REGION_LITTLEFS_EXTERNAL
+        select NCS_SAMPLE_MCUMGR_BT_OTA_DFU
+        # FOTA 
+        select MCUMGR
+        select MCUMGR_GRP_OS
+        select MCUMGR_GRP_OS_TASKSTAT
+        select MCUMGR_GRP_FS
+        select BT_GATT_DYNAMIC_DB
+        select MCUMGR_TRANSPORT_BT_DYNAMIC_SVC_REGISTRATION
+        select MCUMGR_MGMT_NOTIFICATION_HOOKS
+        select MCUMGR_GRP_IMG
+        select MCUMGR_GRP_IMG_UPLOAD_CHECK_HOOK
+        select MCUMGR_GRP_IMG_IMAGE_SLOT_STATE_HOOK
+        select MCUMGR_GRP_IMG_STATUS_HOOKS
+        # Enable MCUMGR management for both OS and Images
+
+        # Enable Shell over MCUmgr
+        select MCUMGR_GRP_SHELL
+        select SHELL
+        select SHELL_BACKEND_DUMMY
+
+        select BASE64
+        select MCUMGR_TRANSPORT_DUMMY
+        select MCUMGR_TRANSPORT_BT
+
+        # Dependencies
+        # Configure dependencies for select MCUMGR
+        select NET_BUF
+        select ZCBOR
+        select CRC
+
+        # Configure dependencies for select MCUMGR_GRP_IMG
+        select FLASH
+        select IMG_MANAGER
+
+        # Configure dependencies for select IMG_MANAGER
+        select STREAM_FLASH
+        select FLASH_MAP
+
+        select BASE64
+
+        # Enable MCUmgr and Shell transport
+        select MCUMGR
+        default n
+
+    config ZSW_XIP
+        bool
+    prompt "Enable XIP"
+        select HAVE_CUSTOM_LINKER_SCRIPT
+        select CODE_DATA_RELOCATION
+        select BUILD_NO_GAP_FILL
+        select NORDIC_QSPI_NOR_XIP
+    default n
 
     menu "Applications"
         config APPLICATIONS_USE_2048
@@ -165,7 +225,7 @@ menu "ZSWatch"
         prompt "Disable encryption required for BLE connection (pairing/bonding)"
         default n
         help
-            "Disable encryption for BLE connection (pairing/bonding). Used only for debugging purposes."
+            Disable encryption for BLE connection (pairing/bonding). Used only for debugging purposes.
     endmenu
     
     menu "SPI RTT Flash Loader"
@@ -184,7 +244,7 @@ menu "ZSWatch"
             prompt "Erase sectors one by one when writing instead of full partition before starting."
             default y
             help
-                "If not writing to the full partition this will be faster"
+                If not writing to the full partition this will be faster
 
             config RTT_TRANSFER_CHANNEL
                 int
@@ -192,7 +252,7 @@ menu "ZSWatch"
             prompt "The RTT channel to use for transfer of data to and form flash"
             default 2
             help
-                "If RTT logging is enabled, channel 0 is used for this, hence avoid 1 in this scenario."
+                If RTT logging is enabled, channel 0 is used for this, hence avoid 1 in this scenario.
         endif
     endmenu
 
@@ -209,7 +269,7 @@ menu "ZSWatch"
         prompt "Log sensor fusion reading to RTT"
         default 1
         help
-            "Python script can be used to read, analyze the RTT channel and plot the sensor fusion reading."
+            Python script can be used to read, analyze the RTT channel and plot the sensor fusion reading.
 
         if SEND_SENSOR_READING_OVER_RTT
             config SENSOR_LOG_RTT_TRANSFER_CHANNEL
@@ -217,7 +277,7 @@ menu "ZSWatch"
             prompt "The RTT channel to use for transfer of sensor fusion reading"
             default 1
             help
-                "If RTT logging is enabled"
+                If RTT logging is enabled
         endif
     endmenu
 
