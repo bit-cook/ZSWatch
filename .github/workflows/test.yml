@@ -1,11 +1,42 @@
-on: [workflow_call]
+on:
+  workflow_call:
+    inputs:
+      is-external-pr:
+        description: 'Whether this is an external PR from a fork'
+        type: boolean
+        required: false
+        default: false
+      pr-head-sha:
+        description: 'PR head SHA for external PRs'
+        type: string
+        required: false
+        default: ''
+      pr-head-repo:
+        description: 'PR head repository for external PRs'
+        type: string
+        required: false
+        default: ''
 
 jobs:
   test:
     runs-on: [self-hosted, x64]
+    environment: ${{ inputs.is-external-pr && 'external-pr-approval' || null }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.is-external-pr && inputs.pr-head-sha || github.sha }}
+          repository: ${{ inputs.is-external-pr && inputs.pr-head-repo || github.repository }}
+
+      - name: PR Type Notice
+        run: |
+          if [ "${{ inputs.is-external-pr }}" = "true" ]; then
+            echo "::notice::External PR detected - using stable workflows from main branch"
+            echo "::notice::Testing code from: ${{ inputs.pr-head-repo }}@${{ inputs.pr-head-sha }}"
+          else
+            echo "::notice::Internal PR detected - using workflows from PR branch"
+          fi
 
       - name: Install dependencies
         continue-on-error: true # JLink install may fail
@@ -44,11 +75,25 @@ jobs:
           fi
 
           sudo apt-get install -y bluez
-          sudo apt-get install xvfb
-          sudo apt-get install imagemagick
+          sudo apt-get install -y xvfb
+          sudo apt-get install -y imagemagick
+          sudo apt-get install -y python-is-python3
+          sudo apt-get install -y python3-pip
+          sudo apt-get install -y python3-venv
 
+          python -m venv .venv
+          source .venv/bin/activate
           python -m pip install --upgrade pip
           pip install -r app/pytest/requirements.txt
+
+          # Needed for running native_sim application in tests
+          sudo apt-get install -y build-essential
+          sudo apt-get install -y libsdl2-dev
+          sudo usermod -aG bluetooth $USER
+          sudo setcap cap_net_admin=eip $(which btmgmt)
+
+          # For UART
+          sudo usermod -aG dialout $USER
 
       - name: 'Download image'
         uses: actions/download-artifact@v4
@@ -59,7 +104,7 @@ jobs:
       - name: 'Download image'
         uses: actions/download-artifact@v4
         with:
-          name: zswatch@5_nrf5340_cpuapp_debug
+          name: zswatch_legacy@5_nrf5340_cpuapp_debug
           path: app/pytest/
 
       - name: 'Download image'
@@ -77,6 +122,7 @@ jobs:
         id: pytest_run
         run: |
           set +e
+          source .venv/bin/activate
           cd app/pytest
 
           # Make sure bt hci adapter is on.
@@ -123,9 +169,10 @@ jobs:
           require_tests: false # Don't require tests to be found
 
       - name: Create/Update Power Consumption Comment
-        if: github.event_name == 'pull_request' && (success() || failure())
+        if: success() || failure()
         continue-on-error: true
         run: |
+          source .venv/bin/activate
           cd app/pytest
           if [ -f "power_results.json" ]; then
             echo "Generating power consumption comment..."
@@ -137,7 +184,7 @@ jobs:
           fi
 
       - name: Find existing power consumption comment
-        if: github.event_name == 'pull_request' && (success() || failure())
+        if: success() || failure()
         uses: peter-evans/find-comment@v3
         id: fc
         with:
@@ -146,7 +193,7 @@ jobs:
           body-includes: '⚡ Power Consumption'
 
       - name: Create or update power consumption comment
-        if: github.event_name == 'pull_request' && (success() || failure())
+        if: success() || failure()
         uses: peter-evans/create-or-update-comment@v4
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}

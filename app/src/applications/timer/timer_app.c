@@ -9,7 +9,6 @@
 #include "timer_ui.h"
 #include "zsw_alarm.h"
 #include "drivers/zsw_vibration_motor.h"
-#include "drivers/zsw_buzzer.h"
 #include "events/zsw_periodic_event.h"
 #include "ui/popup/zsw_popup_window.h"
 #include "zsw_clock.h"
@@ -39,7 +38,8 @@ static application_t app = {
     .name = "Timers",
     .icon = ZSW_LV_IMG_USE(timer_app_icon),
     .start_func = timer_app_start,
-    .stop_func = timer_app_stop
+    .stop_func = timer_app_stop,
+    .category = ZSW_APP_CATEGORY_ROOT
 };
 
 static void timer_app_start(lv_obj_t *root, lv_group_t *group)
@@ -85,7 +85,6 @@ static void alarm_triggered_cb(void *user_data)
     snprintf(buf, sizeof(buf), "Timer %d triggered", timer_id);
 
     zsw_vibration_run_pattern(ZSW_VIBRATION_PATTERN_ALARM);
-    zsw_buzzer_run_melody(ZSW_BUZZER_PATTERN_ALARM);
     // TODO: Make a different popup for timer, and make it vibrate until timer is dismissed
     zsw_popup_show("Timer", buf, NULL, 10, false);
 }
