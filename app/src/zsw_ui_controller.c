@@ -69,7 +69,7 @@ static void run_input_work(struct k_work *item)
     switch (container->event.code) {
         // Button event
         case (INPUT_KEY_Y): {
-#if(CONFIG_MISC_ENABLE_SYSTEM_RESET && (CONFIG_ZSWATCH_PCB_REV < 5))
+#if(CONFIG_MISC_ENABLE_SYSTEM_RESET && !CONFIG_DT_HAS_NORDIC_NPM1300_ENABLED)
             LOG_INF("Force restart");
 
             retained.off_count += 1;
@@ -101,32 +101,7 @@ static void run_input_work(struct k_work *item)
         }
     }
 
-    // Handle the input events. We have to take care about the screen orientation for the touch events.
-    lv_dir_t gesture_code = LV_DIR_NONE;
-    switch (container->event.code) {
-        // Watch: Slide from right to left.
-        case INPUT_BTN_NORTH: {
-            gesture_code = LV_DIR_LEFT;
-            break;
-        }
-        // Watch: Slide from left to right.
-        case INPUT_BTN_SOUTH: {
-            gesture_code = LV_DIR_RIGHT;
-            break;
-        }
-        // Watch: Slide from bottom to top.
-        case INPUT_BTN_WEST: {
-            gesture_code = LV_DIR_TOP;
-            break;
-        }
-        // Watch: Slide from top to bottom.
-        case INPUT_BTN_EAST: {
-            gesture_code = LV_DIR_BOTTOM;
-            break;
-        }
-    }
-
-    if (is_buttons_for_lvgl && (gesture_code == LV_DIR_NONE)) {
+    if (is_buttons_for_lvgl) {
         // Handled by LVGL
         last_input_event.code = container->event.code;
         return;

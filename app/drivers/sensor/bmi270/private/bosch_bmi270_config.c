@@ -250,7 +250,11 @@ int bmi2_configure_enable_all(const struct device *p_dev, struct bmi270_data *p_
             if (bmi270_enabled_features[i].isr_disable) {
                 all_features[num_features].hw_int_pin = BMI2_INT_NONE;
             } else {
+#ifdef CONFIG_BMI270_PLUS_USE_INT1
+                all_features[num_features].hw_int_pin = BMI2_INT1;
+#else
                 all_features[num_features].hw_int_pin = BMI2_INT2;
+#endif
             }
 
             num_features++;
@@ -587,6 +591,7 @@ int bmi2_disable_feature(const struct device *p_dev, uint8_t feature)
 
 int bmi2_enable_feature(const struct device *p_dev, uint8_t feature, bool int_en)
 {
+    int8_t rslt;
     uint16_t int_status;
     uint8_t feature_disable;
     struct bmi2_sens_int_config cfg;
@@ -606,13 +611,20 @@ int bmi2_enable_feature(const struct device *p_dev, uint8_t feature, bool int_en
     }
 
     if (int_en) {
+#ifdef CONFIG_BMI270_PLUS_USE_INT1
+        cfg.hw_int_pin = BMI2_INT1;
+#else
         cfg.hw_int_pin = BMI2_INT2;
+#endif
     } else {
         cfg.hw_int_pin = BMI2_INT_NONE;
     }
     cfg.type = feature;
-
-    if (bmi270_map_feat_int(&cfg, 1, &data->bmi2) != BMI2_OK) {
+    
+    rslt = bmi270_map_feat_int(&cfg, 1, &data->bmi2);
+    // If interrupt is not enabled and interrupt mapping failed due to invalid sensor, it's fine.
+    // As we never tried to enable an interrupt for this specific feature.
+    if ((rslt != BMI2_OK) && !(rslt == BMI2_E_INVALID_SENSOR && !int_en)) {
         return -EFAULT;
     }
 

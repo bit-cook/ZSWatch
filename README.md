@@ -1,6 +1,5 @@
-# [ZSWatch](https://zswatch.dev/)
-
-![ZSWatch_gh_banner](https://github.com/jakkra/ZSWatch/assets/4318648/dc3849d7-4618-47a4-8efe-8a909a47fd20)
+# [zswatch.dev](https://zswatch.dev/)
+<img alt="ZSWatch_logo_with_text" src="https://github.com/user-attachments/assets/6669a8eb-a4fd-424e-9a7c-201e0a571641" />
 
 <div align="center">
 
@@ -181,10 +180,19 @@ This project is partly funded through [NGI0 Commons Fund](https://nlnet.nl/commo
 
 ### Support
 
-<a href="https://www.segger.com/"><img width="10%" src=".github/images/SEGGER-Logo-the-embedded-experts-RGB.jpg" ></a>
+<p align="left">
+  <a href="https://www.pcbway.com/">
+    <img width="20%" src=".github/images/pcbway_logo.svg" alt="PCBWay Logo" style="vertical-align:middle;" />
+  </a>
+  <a href="https://www.segger.com/">
+    <img width="20%" src=".github/images/SEGGER-Logo-the-embedded-experts-RGB.jpg" alt="SEGGER Logo" style="vertical-align:middle; margin-right: 32px;" />
+  </a>
+</p>
 
-SEGGER for supporting SEGGER-OB licenses that make the dock a fully functional programmer and debugger for ZSWatch.
-Thanks to this the project will be much more approachable for persons without a J-Link debugger, letting them have full development and debugging capabilities.
+**PCBWay** for sponsoring the manufacturing and assembly of some prototype PCBs. PCBWay is the recommended manufacturer for PCBs and assembly of ZSWatch.
+
+**SEGGER** for supporting SEGGER-OB licenses that make the dock a fully functional programmer and debugger for ZSWatch. Thanks to this, the project is much more approachable for persons without a J-Link debugger, letting them have full development and debugging capabilities.
+
 
 ## Miscellaneous stuff
 
